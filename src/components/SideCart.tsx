@@ -132,8 +132,9 @@ const SideCart = (props: Props) => {
           </SheetHeader>
           <SheetDescription>
             <ScrollArea className="h-[75vh]">
-              {cartItems.map((item) => (
+              {cartItems.map((item, idx) => (
                 <CartItems
+                  key={idx}
                   ProductName={item.ProductName}
                   ProductPrice={item.ProductPrice}
                   ProductType={item.ProductType}

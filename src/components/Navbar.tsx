@@ -18,11 +18,12 @@ import {
 import { Separator } from "@/components/ui/separator";
 import SideCart from "./SideCart";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type Props = {};
 
 const Navbar = (props: Props) => {
-  const user = false;
+  const user = true;
   return (
     <div className="w-full  h-16">
       {" "}
@@ -72,10 +73,18 @@ const Navbar = (props: Props) => {
               <IoSearch className="w-8 h-10 px-1 rounded-lg cursor-pointer md:hidden hover:border hover:scale-105" />
               <Popover>
                 <PopoverTrigger>
-                  <img
-                    src="./pfp2.jpg"
-                    className="hidden rounded-full md:block h-9 w-9"
-                  />
+                  <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  {/* {user ? (
+                    <img
+                      src="./pfp2.jpg"
+                      className="hidden rounded-full md:block h-9 w-9"
+                    />
+                  ) : (
+                    ""
+                  )} */}
                 </PopoverTrigger>
                 <PopoverContent className="flex justify-center w-52">
                   <div className="flex flex-col items-center justify-center w-full m-auto ">
