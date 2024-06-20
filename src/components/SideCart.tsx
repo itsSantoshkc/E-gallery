@@ -130,7 +130,7 @@ const SideCart = (props: Props) => {
               Items In Your Cart...
             </SheetTitle>
           </SheetHeader>
-          <SheetDescription>
+          <SheetDescription className="text-black">
             <ScrollArea className="h-[75vh]">
               {cartItems.map((item, idx) => (
                 <CartItems

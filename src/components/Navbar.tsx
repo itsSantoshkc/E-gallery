@@ -25,7 +25,7 @@ type Props = {};
 const Navbar = (props: Props) => {
   const user = true;
   return (
-    <div className="w-full  h-16">
+    <div className="w-full border-b  h-16">
       {" "}
       {/* Add this later sticky top-0 and add feature that nava bar
     changes color when scrolled if hero is dark coloured   */}
