@@ -26,7 +26,6 @@ const Navbar = (props: Props) => {
   const user = true;
   return (
     <div className="w-full border-b  h-16">
-      {" "}
       {/* Add this later sticky top-0 and add feature that nava bar
     changes color when scrolled if hero is dark coloured   */}
       <ul className="flex items-center justify-between h-full mx-5 md:mx-7 text-black md:justify-between ">
@@ -49,7 +48,7 @@ const Navbar = (props: Props) => {
           </Sheet>
         </li>
 
-        <li className="flex items-center justify-center w-auto h-full text-2xl font-bold md:m-10">
+        <li className="flex items-center justify-center  w-auto h-full text-2xl font-bold md:m-5 lg:m-10">
           E-gallery
         </li>
         <li className="items-center justify-center hidden w-1/2 md:h-2/4 lg:h-2/3 xl:w-2/6 md:flex">

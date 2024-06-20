@@ -9,7 +9,6 @@ export default function ProfileLayout({
 }) {
   return (
     <>
-      <h1>Inside The layout</h1>
       <div>{children}</div>
     </>
   );
