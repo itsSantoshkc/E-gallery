@@ -94,7 +94,7 @@ const OrdersTable = (props: Props) => {
             <TableHead className="font-black text-black text-center">
               Ordered At
             </TableHead>
-            <TableHead className=" text-center md:text-right font-black text-black ">
+            <TableHead className="text-center md:text-right font-black text-black ">
               Paid Amount
             </TableHead>
           </TableRow>
@@ -111,7 +111,7 @@ const OrdersTable = (props: Props) => {
               <TableCell>{invoice.paymentStatus}</TableCell>
               <TableCell>{invoice.paymentStatus}</TableCell>
               <TableCell>{invoice.paymentMethod}</TableCell>
-              <TableCell className="text-right">
+              <TableCell className="md:text-right">
                 {invoice.totalAmount}
               </TableCell>
             </TableRow>
