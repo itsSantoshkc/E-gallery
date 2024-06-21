@@ -10,6 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import Link from "next/link";
 import {
   Popover,
   PopoverContent,
@@ -48,8 +49,8 @@ const Navbar = (props: Props) => {
           </Sheet>
         </li>
 
-        <li className="flex items-center justify-center  w-auto h-full text-2xl font-bold md:m-5 lg:m-10">
-          E-gallery
+        <li className="flex cursor-pointer items-center justify-center  w-auto h-full text-2xl font-bold md:m-5 lg:m-10">
+          <Link href={"/"}>E-gallery</Link>
         </li>
         <li className="items-center justify-center hidden w-1/2 md:h-2/4 lg:h-2/3 xl:w-2/6 md:flex">
           <input
@@ -90,10 +91,10 @@ const Navbar = (props: Props) => {
                     <h4 className="text-xl font-semibold">Profile Settings</h4>
                     <Separator className="my-2" />
                     <div className="flex justify-center w-full p-2 m-auto my-1 font-medium transition-colors duration-500 text-md hover:bg-slate-800 hover:text-white">
-                      Manage Profile
+                      <Link href={"/profile"}>Manage Profile</Link>
                     </div>
                     <div className="flex justify-center w-full p-2 m-auto my-1 font-medium transition-colors duration-500 text-md hover:bg-slate-800 hover:text-white">
-                      Manage Orders
+                      <Link href={"/profile/orders"}>Manage Orders</Link>
                     </div>
                     <div className="flex justify-center w-full p-2 m-auto my-1 font-medium transition-colors duration-500 text-md hover:bg-slate-800 hover:text-white">
                       Log Out
