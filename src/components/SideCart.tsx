@@ -131,7 +131,7 @@ const SideCart = (props: Props) => {
             </SheetTitle>
           </SheetHeader>
           <SheetDescription className="text-black">
-            <ScrollArea className="h-[75vh]">
+            <ScrollArea className="h-[65vh] md:h-[75vh]">
               {cartItems.map((item, idx) => (
                 <CartItems
                   key={idx}
@@ -144,7 +144,7 @@ const SideCart = (props: Props) => {
               ))}
             </ScrollArea>
           </SheetDescription>
-          <SheetFooter className="w-full border-t md:h-[15vh] o">
+          <SheetFooter className="w-full h-[10vh] border-t md:h-[15vh] o">
             <div className="flex flex-col items-center justify-around w-full h-full">
               <h1 className="w-full my-2 text-xl font-bold text-center md:text-2xl">
                 Check Out
