@@ -123,15 +123,15 @@ const SideCart = (props: Props) => {
         </SheetTrigger>
         <SheetContent
           side={"right"}
-          className="w-full p-0 m-0 overflow-y-hidden h-[100vh]"
+          className="w-full p-0 m-0 flex flex-col  overflow-y-hidden h-[100vh]"
         >
-          <SheetHeader className="h-[10vh] border ">
-            <SheetTitle className="pt-5 text-2xl text-center ">
+          <SheetHeader className="h-[7dvh] md:h-[10dvh]  border flex justify-center items-center ">
+            <SheetTitle className="text-2xl  ">
               Items In Your Cart...
             </SheetTitle>
           </SheetHeader>
           <SheetDescription className="text-black">
-            <ScrollArea className="h-[65vh] md:h-[75vh]">
+            <ScrollArea className="h-[70dvh]  md:h-[75vh]">
               {cartItems.map((item, idx) => (
                 <CartItems
                   key={idx}
@@ -144,9 +144,9 @@ const SideCart = (props: Props) => {
               ))}
             </ScrollArea>
           </SheetDescription>
-          <SheetFooter className="w-full h-[10vh] border-t md:h-[15vh] o">
-            <div className="flex flex-col items-center justify-around w-full h-full">
-              <h1 className="w-full my-2 text-xl font-bold text-center md:text-2xl">
+          <SheetFooter className="w-full   ">
+            <div className="flex h-[10dvh] border-t md:h-[15vh] flex-col items-center justify-around w-full">
+              <h1 className="w-full py-2 text-xl font-bold text-center md:text-2xl">
                 Check Out
               </h1>
               <Separator className="w-3/4" />
@@ -157,7 +157,7 @@ const SideCart = (props: Props) => {
                   $1,000,000,000
                 </h1>
               </div>
-              <Button className="p-4 h-7 md:mb-2 md:h-10 ">
+              <Button className="p-4 h-10 md:mb-2 md:h-10 ">
                 Proceed To Checkout
               </Button>
             </div>

@@ -79,7 +79,7 @@ const page = (props: Props) => {
       paymentMethod: "Bank Transfer",
     },
     {
-      invoice: "INV010",
+      invoice: "INV011",
       paymentStatus: "Pending",
       totalAmount: "$200.00",
       paymentMethod: "Bank Transfer",
