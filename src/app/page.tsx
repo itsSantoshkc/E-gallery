@@ -44,8 +44,8 @@ export default function Home() {
       </div>
       <div className="flex w-full  justify-center">
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:w-5/6  2xl:grid-cols-4  w-full m-6">
-          {Imagedata?.map((img) => (
-            <div className="h-96 w-full ">
+          {Imagedata?.map((img, idx) => (
+            <div key={idx} className="h-96 w-full ">
               <img
                 className="object-cover h-full w-full  rounded-xl"
                 src={img}
