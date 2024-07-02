@@ -16,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
+        <div className="h-[7vh]">
+          <Navbar />
+        </div>
+
         {children}
       </body>
     </html>

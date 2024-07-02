@@ -3,13 +3,21 @@
 import { Button } from "@/components/ui/button";
 import { MouseEventHandler, useState } from "react";
 import Image from "next/image";
+import SlidingTab from "@/components/SlidingTab";
+import { BiSort } from "react-icons/bi";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Home() {
-  // const [translate, setTranslate] = useState<any>(0);
-  // window.addEventListener("resize", function (event) {
-  //   console.log("Hello World");
-  // });
-
+  const [position, setPosition] = useState("bottom");
   const Imagedata: string[] = [
     "https://images.unsplash.com/photo-1718888821451-d49db6980a00?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://images.unsplash.com/photo-1718931216644-24d4aaa85fa0?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -33,21 +41,55 @@ export default function Home() {
     "https://images.unsplash.com/photo-1629053800620-4584e836b3bc?q=80&w=2022&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   ];
 
-  // const Imagedata: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
   return (
     <main className="h-screen ">
-      <div>
-        <h1 className="text-3xl md:text-4xl md:my-10 lg:my-20 lg:text-5xl  my-5 text-center font-bold">
+      <div className="mt-10 md:mt-0">
+        <h1 className="my-3  text-3xl font-bold text-center h-full md:text-4xl md:my-10 lg:my-20 lg:text-5xl">
           Discover Artworks
         </h1>
       </div>
-      <div className="flex w-full  justify-center">
-        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:w-5/6  2xl:grid-cols-4  w-full m-6">
+      <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center  h-16 w-[90%] md:w-[95%] mx-6 my-2  lg:w-5/6">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <div className="flex items-center justify-around p-2 text-3xl border cursor-pointer md:mx-4 rounded-xl">
+                <div className=" w-[20%] hidden mx-2 text-xl md:block">
+                  Sort
+                </div>
+                <BiSort />
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel>Sort</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuRadioGroup
+                value={position}
+                onValueChange={setPosition}
+              >
+                <DropdownMenuRadioItem value="top">
+                  Sort By Likes
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="bottom">
+                  Sort By Pirce
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="right">
+                  Sort By A-Z
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <div className="w-full h-full ml-2 overflow-hidden md:w-full md:ml-1 md:text-xl">
+            <SlidingTab />
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-center w-full">
+        <div className="grid w-full grid-cols-1 gap-6 m-6 md:grid-cols-2 lg:w-5/6 2xl:grid-cols-4">
           {Imagedata?.map((img, idx) => (
-            <div key={idx} className="h-96 w-full ">
+            <div key={idx} className="w-full h-96 ">
               <img
-                className="object-cover h-full w-full  rounded-xl"
+                className="object-cover w-full h-full rounded-xl"
                 src={img}
               />
             </div>
@@ -56,21 +98,4 @@ export default function Home() {
       </div>
     </main>
   );
-}
-{
-  /* <Button>Left</Button>
-      <div className="flex -translate-x-[] m-2 w-screen  overflow-x-hidden">
-        <Button variant={"outline"}>Fiction</Button>
-        <Button variant={"outline"}>Digital</Button>
-        <Button variant={"outline"}>Abstract</Button>
-        <Button variant={"outline"}>Grunge</Button>
-        <Button variant={"outline"}>Oiled</Button>
-        <Button variant={"outline"}>Water</Button>
-        <Button variant={"outline"}>Anime</Button>
-        <Button variant={"outline"}>Cartoon</Button>
-        <Button variant={"outline"}>Game</Button>
-        <Button variant={"outline"}>Realistic</Button>
-        <Button variant={"outline"}>AI</Button>
-      </div>
-      <Button>Right</Button> */
 }
