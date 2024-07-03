@@ -123,7 +123,7 @@ const SideCart = (props: Props) => {
         </SheetTrigger>
         <SheetContent
           side={"right"}
-          className="w-full p-0 m-0 flex flex-col  overflow-y-hidden h-[100vh]"
+          className="w-full z-[999] p-0 m-0 flex flex-col  overflow-y-hidden h-[100vh]"
         >
           <SheetHeader className="h-[7dvh] md:h-[10dvh]  border flex justify-center items-center ">
             <SheetTitle className="text-2xl  ">

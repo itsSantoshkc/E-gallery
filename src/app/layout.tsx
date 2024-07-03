@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="h-[7vh]">
+        <div className="h-[5vh]">
           <Navbar />
         </div>
 

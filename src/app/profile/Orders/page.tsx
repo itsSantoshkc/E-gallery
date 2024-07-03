@@ -78,36 +78,24 @@ const page = (props: Props) => {
       totalAmount: "$200.00",
       paymentMethod: "Bank Transfer",
     },
-    {
-      invoice: "INV011",
-      paymentStatus: "Pending",
-      totalAmount: "$200.00",
-      paymentMethod: "Bank Transfer",
-    },
   ];
   return (
     <>
-      <div className=" min-h-screen max-w-screen">
-        <div className="text-center text-2xl md:text-3xl lg:text-4xl font-bold p-5 py-16">
+      <div className="min-h-screen max-w-screen">
+        <div className="p-5 py-16 text-2xl font-bold text-center md:text-3xl lg:text-4xl">
           <h1>A List Of Your Orders</h1>
         </div>
-        <div className="px-3 my-8 pb-5 md:mx-20 md:w-3/4  2xl:w-2/4 lg:mx-auto ">
+        <div className="px-3 pb-5 my-8 md:mx-20 md:w-3/4 2xl:w-2/4 lg:mx-auto ">
           <Table className="text-xs sm:text-sm md:text-lg">
             <TableHeader>
-              <TableRow>
-                <TableHead className="font-black text-black text-center md:text-left">
+              <TableRow className="hover:bg-stone-600  bg-stone-600 *:hover:bg-stone-500 *:cursor-pointer *:text-white *:font-bold">
+                <TableHead className="text-center md:text-left">
                   Order No
                 </TableHead>
-                <TableHead className="font-black text-black text-center">
-                  Product Name
-                </TableHead>
-                <TableHead className="font-black text-black text-center">
-                  Order Quantity
-                </TableHead>
-                <TableHead className="font-black text-black text-center">
-                  Ordered At
-                </TableHead>
-                <TableHead className="text-center md:text-right font-black text-black ">
+                <TableHead className="text-center ">Product Name</TableHead>
+                <TableHead className="text-center ">Order Quantity</TableHead>
+                <TableHead className="text-center ">Ordered At</TableHead>
+                <TableHead className="text-center md:text-right ">
                   Paid Amount
                 </TableHead>
               </TableRow>
@@ -124,24 +112,20 @@ const page = (props: Props) => {
                   />
                 ))}
             </TableBody>
-            {invoices.length > 10 ? (
-              <TableFooter>
-                <TableRow className="rounded-b-full">
+            {invoices.length >= 10 ? (
+              <TableFooter className="bg-stone-600 ">
+                <TableRow className="rounded-b-full hover:bg-stone-600">
                   <TableCell colSpan={4}>
-                    <div className="flex justify-between w-1/5 items-center">
-                      <p className="border p-2 mx-2 rounded-lg w-10 font-bold text-gray-500 text-center ">
-                        11
-                      </p>
-                      <p className=" p-2 text-center text-sms md:text-base font-bold  text-gray-500">
-                        TO
-                      </p>
-                      <p className="border p-2 mx-2 rounded-lg w-10 font-bold text-gray-500 text-center">
-                        20
-                      </p>
+                    <div className="flex items-center justify-between *:p-2  *:text-white *:font-bold *:text-center w-1/5">
+                      <p className="w-10 p-2 mx-2 border rounded-lg ">11</p>
+                      <p className="p-2 text-sms md:text-base">TO</p>
+                      <p className="w-10 p-2 mx-2 border rounded-lg">20</p>
                     </div>
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button>Show More</Button>
+                    <Button className="text-lg text-black bg-stone-300 hover:bg-stone-200">
+                      Show More
+                    </Button>
                   </TableCell>
                 </TableRow>
               </TableFooter>
