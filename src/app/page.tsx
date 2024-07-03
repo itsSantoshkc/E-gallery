@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export default function Home() {
-  const [position, setPosition] = useState("bottom");
+  const [position, setPosition] = useState("A-Z");
   const Imagedata: string[] = [
     "https://images.unsplash.com/photo-1718888821451-d49db6980a00?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://images.unsplash.com/photo-1718931216644-24d4aaa85fa0?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <main className="h-screen ">
       <div className="mt-10 md:mt-0">
-        <h1 className="my-3  text-3xl font-bold text-center h-full md:text-4xl md:my-10 lg:my-20 lg:text-5xl">
+        <h1 className="h-full my-3 text-3xl font-bold text-center md:text-4xl md:my-10 lg:my-20 lg:text-5xl">
           Discover Artworks
         </h1>
       </div>
@@ -52,34 +52,36 @@ export default function Home() {
         <div className="flex items-center justify-center  h-16 w-[90%] md:w-[95%] mx-6 my-2  lg:w-5/6">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <div className="flex items-center justify-around p-2 text-3xl border cursor-pointer md:mx-4 rounded-xl">
+              <div className="flex items-center justify-around p-2 text-3xl border cursor-pointer border-stone-500 md:mx-4 rounded-xl">
                 <div className=" w-[20%] hidden mx-2 text-xl md:block">
                   Sort
                 </div>
                 <BiSort />
               </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
-              <DropdownMenuLabel>Sort</DropdownMenuLabel>
+            <DropdownMenuContent className="w-56 border">
+              <DropdownMenuLabel className="text-xl text-center">
+                Sort
+              </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuRadioGroup
                 value={position}
                 onValueChange={setPosition}
               >
-                <DropdownMenuRadioItem value="top">
+                <DropdownMenuRadioItem value="A-Z">
+                  Sort By A-Z
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="likes">
                   Sort By Likes
                 </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="bottom">
+                <DropdownMenuRadioItem value="price">
                   Sort By Pirce
-                </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="right">
-                  Sort By A-Z
                 </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <div className="w-full h-full ml-2 overflow-hidden md:w-full md:ml-1 md:text-xl">
+          <div className="z-0 w-full h-full ml-2 overflow-hidden md:w-full md:ml-1 md:text-xl">
             <SlidingTab />
           </div>
         </div>

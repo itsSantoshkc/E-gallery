@@ -76,14 +76,14 @@ const SlidingTab = (props: Props) => {
     const tabs = tabNode?.querySelectorAll("li");
     tabs?.forEach((tab) => {
       if (
-        tab.classList.contains("bg-black") ||
+        tab.classList.contains("bg-stone-500") ||
         tab.classList.contains("text-white")
       ) {
-        tab.classList.toggle("bg-black");
+        tab.classList.toggle("bg-stone-500");
         tab.classList.toggle("text-white");
       }
     });
-    e.target.classList.toggle("bg-black");
+    e.target.classList.toggle("bg-stone-500");
     e.target.classList.toggle("text-white");
   };
 
@@ -108,13 +108,13 @@ const SlidingTab = (props: Props) => {
   };
 
   return (
-    <div className="w-full h-full  ">
-      <div className="relative z-[-999] flex items-center justify-between w-full h-full px-2 ">
+    <div className="w-full h-full   ">
+      <div className="relative  flex items-center justify-between w-full h-full px-2 ">
         {leftButton && (
           <span className="absolute  left-0 flex items-center justify-center w-16 h-full bg-gradient-to-r from-white via-white">
             <span
               onClick={handleLeftClick}
-              className="p-1 text-2xl text-black border rounded-full cursor-pointer "
+              className="p-1 text-2xl text-black border hover:bg-stone-500 hover:text-white transition-colors duration-500 rounded-full cursor-pointer "
             >
               <FaAngleLeft />
             </span>
@@ -122,14 +122,14 @@ const SlidingTab = (props: Props) => {
         )}
         <ul
           ref={tabContainer}
-          className="container overflow-hidden scroll-smooth flex w-full h-full "
+          className="container overflow-x-hidden scroll-smooth flex w-full h-full "
         >
           {Items !== null &&
             Items?.map((item, idx) => (
               <li
                 onClick={handleTabClick}
                 key={idx}
-                className="p-2 m-2 transition-all duration-500 border cursor-pointer rounded-2xl"
+                className="p-2 m-2 hover:bg-stone-500 hover:text-white hover:border-stone-500 transition-all duration-500 border cursor-pointer rounded-2xl"
               >
                 {item}
               </li>
@@ -139,7 +139,7 @@ const SlidingTab = (props: Props) => {
           <span className="absolute right-0 flex items-center w-10 h-full bg-gradient-to-l from-white via-white ">
             <span
               onClick={handleRightClick}
-              className="p-1 text-2xl border rounded-full cursor-pointer"
+              className="p-1 text-2xl border hover:bg-stone-500 hover:text-white transition-colors duration-500 rounded-full cursor-pointer"
             >
               <FaAngleRight />
             </span>
