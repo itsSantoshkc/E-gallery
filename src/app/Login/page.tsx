@@ -1,5 +1,5 @@
 import React from "react";
-import LogInForm from "./LoginForm";
+import LogInForm from "./LogInForm";
 
 type Props = {};
 
