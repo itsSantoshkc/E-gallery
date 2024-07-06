@@ -5,7 +5,7 @@ type Props = {};
 
 const page = (props: Props) => {
   return (
-    <div>
+    <div className="h-full  overflow-y-hidden w-screen flex justify-center items-center">
       <LogInForm />
     </div>
   );
