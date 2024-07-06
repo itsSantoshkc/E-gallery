@@ -26,32 +26,13 @@ type Props = {};
 const Navbar = (props: Props) => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
 
-  const user = true;
+  const user = false;
   return (
-    <div className="w-full fixed top-0 z-[999]    bg-white  h-16">
+    <div className="w-full fixed z-[999]    bg-white  h-16">
       <div className="w-full h-16 border-b">
         {/* Add this later sticky top-0 and add feature that nava bar
     changes color when scrolled if hero is dark coloured   */}
         <ul className="flex items-center justify-between h-full mx-5 text-black md:mx-7 md:justify-between ">
-          <li className="flex items-center w-20 h-full md:hidden">
-            <Sheet key={"left"}>
-              <SheetTrigger>
-                <HiOutlineBars3BottomLeft className=" md:hidden h-7 w-7" />
-              </SheetTrigger>
-              <SheetContent side={"left"} className="z-[999] ">
-                <SheetHeader>
-                  <SheetTitle>Are you absolutely sure?</SheetTitle>
-                  <SheetDescription>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eligendi voluptatem perferendis, officiis optio eius earum
-                    distinctio adipisci temporibus deserunt nesciunt incidunt
-                    odio fuga sed velit, ratione voluptate modi. Illo, officia.
-                  </SheetDescription>
-                </SheetHeader>
-              </SheetContent>
-            </Sheet>
-          </li>
-
           <li className="flex items-center justify-center w-auto h-full text-2xl font-bold cursor-pointer md:m-5 lg:m-10">
             <Link href={"/"}>E-gallery</Link>
           </li>
@@ -110,7 +91,7 @@ const Navbar = (props: Props) => {
                         <Link href={"/profile"}>Manage Profile</Link>
                       </div>
                       <div className="w-full py-2 my-1 font-medium text-center transition-colors duration-500 text-md hover:bg-stone-500 hover:text-white">
-                        <Link href={"/profile/orders"}>Manage Orders</Link>
+                        <Link href={"/orders"}>Manage Orders</Link>
                       </div>
                       <div className="w-full py-2 my-1 font-medium text-center transition-colors duration-500 cursor-pointer text-md hover:bg-stone-500 hover:text-white">
                         Log Out
@@ -151,9 +132,7 @@ const Navbar = (props: Props) => {
                 ? "-translate-x-0 opacity-100"
                 : "-translate-x-full opacity-0"
             } }`}
-          >
-            <IoSearch className="w-8 h-10 px-1 rounded-lg cursor-pointer md:hidden hover:scale-105" />
-          </Button>
+          ></Button>
         </div>
       </div>
     </div>
