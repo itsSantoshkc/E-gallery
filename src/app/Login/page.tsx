@@ -5,12 +5,12 @@ import React, { FormEvent, useRef } from "react";
 type Props = {};
 
 const page = (props: Props) => {
-  const emailRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const EmailRef = useRef<HTMLInputElement | null>(null);
+  const PasswordRef = useRef<HTMLInputElement | null>(null);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(emailRef.current?.value, passwordRef.current?.value);
+    console.log(EmailRef.current?.value, PasswordRef.current?.value);
   };
   return (
     <div className="h-full  overflow-y-hidden w-screen flex justify-center items-center">
@@ -44,7 +44,7 @@ const page = (props: Props) => {
               Email Address
             </label>
             <input
-              ref={emailRef}
+              ref={EmailRef}
               type="email"
               name="email"
               className="h-10 px-3 rounded-xl"
@@ -58,7 +58,7 @@ const page = (props: Props) => {
             </label>
             <div className="relative w-full h-10 flex items-center   rounded-xl">
               <input
-                ref={passwordRef}
+                ref={PasswordRef}
                 type="password"
                 name="password"
                 className="w-full h-full px-3 rounded-xl"
