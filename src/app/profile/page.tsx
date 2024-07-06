@@ -28,51 +28,51 @@ const page = (props: Props) => {
                   Personal Information
                 </h1>
                 <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 rounded-xl">
-                  <h1 className="text-lg ">Name</h1>
-                  <div className="flex items-center h-full text-base ">
+                  <h1 className="text-base sm:text-lg ">Name</h1>
+                  <div className="flex items-center h-full text-sm sm:text-base  ">
                     <h2 className="mx-1">Santosh K.C.</h2>
                     <MdOutlineKeyboardArrowRight className="text-3xl" />
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 rounded-xl">
-                  <h1 className="text-lg">Gender </h1>
-                  <div className="flex items-center h-full text-base">
+                  <h1 className="text-base sm:text-lg">Gender </h1>
+                  <div className="flex items-center h-full text-sm sm:text-base ">
                     <h2 className="mx-1">Male</h2>
                     <MdOutlineKeyboardArrowRight className="text-3xl" />
                   </div>
                 </div>
-                <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 md:col-span-2 hover:bg-stone-100 rounded-xl">
-                  <h1 className="text-lg">Email Address</h1>
-                  <div className="flex items-center h-full text-base">
-                    <h2 className="mx-1">Santoshkc7786@gmail.com</h2>
+                <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 md:col-span-1 hover:bg-stone-100 rounded-xl">
+                  <h1 className="text-base sm:text-lg">Email</h1>
+                  <div className="flex items-center  h-full text-sm sm:text-base ">
+                    <h2 className="mx-1 ">sa******</h2>
                     <MdOutlineKeyboardArrowRight className="text-3xl" />
                   </div>
                 </div>
                 <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 rounded-xl">
-                  <h1 className="text-lg">Birth Date </h1>
-                  <div className="flex items-center h-full text-base">
+                  <h1 className="text-base sm:text-lg">Birth Date </h1>
+                  <div className="flex items-center h-full text-sm sm:text-base ">
                     <h2 className="mx-1">03/06/2002</h2>
                     <MdOutlineKeyboardArrowRight className="text-3xl" />
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 rounded-xl">
-                  <h1 className="text-lg">Change Password </h1>
+                  <h1 className="text-base sm:text-lg">Change Password </h1>
                   <MdOutlineKeyboardArrowRight className="text-3xl" />
                 </div>
-                <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 md:col-span-2 hover:bg-stone-100 rounded-xl">
-                  <h1 className="text-lg">Phone Number </h1>
-                  <div className="flex items-center h-full text-base">
+                <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 md:col-span-1 hover:bg-stone-100 rounded-xl">
+                  <h1 className="text-base sm:text-lg">Phone</h1>
+                  <div className="flex items-center h-full text-sm sm:text-base ">
                     <h2 className="mx-1">+977 9861421989</h2>
                     <MdOutlineKeyboardArrowRight className="text-3xl" />
                   </div>
                 </div>
-                <div className="flex items-center justify-around h-16 px-4 mx-4 my-5 md:col-span-2">
-                  <Button className="p-6 text-lg transition-colors duration-500 bg-stone-500 hover:bg-stone-400">
+                <div className="flex items-center text-lg justify-around h-16 px-4 mx-4 my-5 md:col-span-2">
+                  <Button className="sm:p-6  transition-colors duration-500 bg-stone-500 hover:bg-stone-400">
                     Deactivate
                   </Button>
-                  <Button variant={"destructive"} className="p-6 text-lg">
+                  <Button variant={"destructive"} className="sm:p-6 ">
                     Delete Account
                   </Button>
                 </div>
@@ -81,22 +81,22 @@ const page = (props: Props) => {
                   Shipping Address
                 </h1>
                 <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 rounded-xl">
-                  <h1 className="text-lg">Country</h1>
-                  <div className="flex items-center h-full text-base">
+                  <h1 className="text-base sm:text-lg">Country</h1>
+                  <div className="flex items-center h-full text-sm sm:text-base ">
                     <h2 className="mx-1">Nepal</h2>
                     <MdOutlineKeyboardArrowRight className="text-3xl" />
                   </div>
                 </div>
                 <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 rounded-xl">
-                  <h1 className="text-lg">State</h1>
-                  <div className="flex items-center h-full text-base">
+                  <h1 className="text-base sm:text-lg">State</h1>
+                  <div className="flex items-center h-full text-sm sm:text-base ">
                     <h2 className="mx-1">Bagmati</h2>
                     <MdOutlineKeyboardArrowRight className="text-3xl" />
                   </div>
                 </div>
                 <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 md:col-span-2 hover:bg-stone-100 rounded-xl">
-                  <h1 className="text-lg">Shipping Address</h1>
-                  <div className="flex items-center h-full text-base">
+                  <h1 className="text-base sm:text-lg">Address</h1>
+                  <div className="flex items-center h-full text-sm sm:text-base">
                     <h2 className="mx-1">Bungamati,Lalitpur - 22</h2>
                     <MdOutlineKeyboardArrowRight className="text-3xl" />
                   </div>
