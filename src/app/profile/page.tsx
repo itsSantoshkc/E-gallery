@@ -52,7 +52,7 @@ const page = (props: Props) => {
                 <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 rounded-xl">
                   <h1 className="text-base sm:text-lg">Birth Date </h1>
                   <div className="flex items-center h-full text-sm sm:text-base ">
-                    <h2 className="mx-1">03/06/2002</h2>
+                    <h2 className="mx-1">03/06/2069</h2>
                     <MdOutlineKeyboardArrowRight className="text-3xl" />
                   </div>
                 </div>

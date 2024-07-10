@@ -109,8 +109,8 @@ const Navbar = (props: Props) => {
         onClick={() => {
           setShowSearch(!showSearch);
         }}
-        className={` md:hidden z-[9999] absolute h-screen  flex justify-center transition-bg-opacity  duration-200 items-center  bg-black  ${
-          showSearch ? "w-screen bg-opacity-50 " : "w-0 bg-opacity-0"
+        className={` md:hidden fixed  z-[9999] min-w-[100vw] max-w-[100vw]  min-h-screen max-h-screen  flex justify-center transition-bg-opacity  duration-200 items-center  bg-black  ${
+          showSearch ? "left-0 bg-opacity-50 " : "-left-full bg-opacity-0"
         } `}
       >
         <div
@@ -132,7 +132,9 @@ const Navbar = (props: Props) => {
                 ? "-translate-x-0 opacity-100"
                 : "-translate-x-full opacity-0"
             } }`}
-          ></Button>
+          >
+            <IoSearch className="h-10 text-2xl text-black" />
+          </Button>
         </div>
       </div>
     </div>

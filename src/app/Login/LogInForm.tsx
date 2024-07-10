@@ -23,7 +23,7 @@ const LogInForm = (props: Props) => {
         </h2>
         <h2 className="text-center font-semibold text-stone-600">or</h2>
       </div>
-      <div className="w-full text-lg font-semibold    *:p-2">
+      <div className="w-full text-lg font-semibold    *:p-3 *:md:p-3">
         <div className=" m-2 rounded-xl transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 ">
           <span className="px-2">Log In With Google</span>
         </div>
@@ -43,7 +43,7 @@ const LogInForm = (props: Props) => {
             ref={EmailRef}
             type="email"
             name="email"
-            className="h-10 px-3 rounded-xl"
+            className="h-12 px-3 rounded-xl"
             placeholder="Enter Your Password"
           />
           <label
@@ -52,7 +52,7 @@ const LogInForm = (props: Props) => {
           >
             Password
           </label>
-          <div className="relative w-full h-10 flex items-center   rounded-xl">
+          <div className="relative w-full h-12 flex items-center   rounded-xl">
             <input
               ref={PasswordRef}
               type="password"
