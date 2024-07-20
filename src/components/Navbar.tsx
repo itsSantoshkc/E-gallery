@@ -1,15 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import { IoSearch } from "react-icons/io5";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+
 import Link from "next/link";
 import {
   Popover,
@@ -20,13 +12,22 @@ import { Separator } from "@/components/ui/separator";
 import SideCart from "./SideCart";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { signOut, useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 type Props = {};
 
 const Navbar = (props: Props) => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
 
-  const user = false;
+  const { data: session } = useSession();
+  console.log(session);
+
+  const handleLogOut = () => {
+    signOut();
+    redirect("/Login");
+  };
+
   return (
     <div className="w-full fixed z-[999]    bg-white  h-16">
       <div className="w-full h-16 border-b">
@@ -45,7 +46,7 @@ const Navbar = (props: Props) => {
             <IoSearch className="w-16 h-full p-1 mr-6 transition-colors duration-500 border border-black rounded-r-full cursor-pointer hover:text-white hover:bg-slate-800 " />
           </li>
           <li className="flex flex-row items-center justify-around h-full w-36 md:m-10">
-            {!user && (
+            {!session && (
               <div className="flex items-center md:mr-2 h-1/2 ">
                 <Link href={"/Login"}>
                   <Button className="m-0 bg-stone-500 hover:bg-stone-400 rounded-xl md:mr-2">
@@ -59,8 +60,8 @@ const Navbar = (props: Props) => {
                 </Link>
               </div>
             )}
-            {user && (
-              <>
+            {session && (
+              <div>
                 <SideCart />
                 <IoSearch
                   onClick={() => setShowSearch(!showSearch)}
@@ -69,17 +70,12 @@ const Navbar = (props: Props) => {
                 <Popover>
                   <PopoverTrigger>
                     <Avatar>
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>CN</AvatarFallback>
+                      <AvatarImage
+                        src={session?.user?.image as string}
+                        alt={session?.user?.name as string}
+                      />
+                      <AvatarFallback>SK</AvatarFallback>
                     </Avatar>
-                    {/* {user ? (
-                    <img
-                      src="./pfp2.jpg"
-                      className="hidden rounded-full md:block h-9 w-9"
-                    />
-                  ) : (
-                    ""
-                  )} */}
                   </PopoverTrigger>
                   <PopoverContent className="flex justify-center mr-2 md:mr-5 w-52 ">
                     <div className="flex flex-col items-center justify-center w-full m-auto ">
@@ -93,13 +89,16 @@ const Navbar = (props: Props) => {
                       <div className="w-full py-2 my-1 font-medium text-center transition-colors duration-500 text-md hover:bg-stone-500 hover:text-white">
                         <Link href={"/orders"}>Manage Orders</Link>
                       </div>
-                      <div className="w-full py-2 my-1 font-medium text-center transition-colors duration-500 cursor-pointer text-md hover:bg-stone-500 hover:text-white">
+                      <div
+                        onClick={handleLogOut}
+                        className="w-full py-2 my-1 font-medium text-center transition-colors duration-500 cursor-pointer text-md hover:bg-stone-500 hover:text-white"
+                      >
                         Log Out
                       </div>
                     </div>
                   </PopoverContent>
                 </Popover>
-              </>
+              </div>
             )}
           </li>
         </ul>

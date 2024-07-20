@@ -1,6 +1,9 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
+import { signIn } from "next-auth/react";
+import { redirect, useRouter } from "next/navigation";
 import React, { FormEvent, useRef } from "react";
+import { toast } from "sonner";
 
 type Props = {};
 
@@ -8,9 +11,30 @@ const LogInForm = (props: Props) => {
   const EmailRef = useRef<HTMLInputElement | null>(null);
   const PasswordRef = useRef<HTMLInputElement | null>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const router = useRouter();
+
+  const handleGoogle = async () => {
+    try {
+      await signIn("google");
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(EmailRef.current?.value, PasswordRef.current?.value);
+
+    const response = await signIn("credentials", {
+      email: EmailRef.current?.value,
+      password: PasswordRef.current?.value,
+      redirect: false,
+    });
+    if (response?.error !== null) {
+      return response?.error === "Error: Email is not verified"
+        ? router.push("/email-verification")
+        : toast.error(response?.error);
+    }
+    router.push("/");
   };
   return (
     <div className=" flex flex-col sm:w-3/4 sm:px-5 md:w-1/2 lg:w-1/3 xl:w-1/4  py-5 w-full  mx-4 rounded-xl bg-stone-200 ">
@@ -24,11 +48,14 @@ const LogInForm = (props: Props) => {
         <h2 className="text-center font-semibold text-stone-600">or</h2>
       </div>
       <div className="w-full text-lg font-semibold    *:p-3 *:md:p-3">
-        <div className=" m-2 rounded-xl transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 ">
+        <div
+          onClick={handleGoogle}
+          className=" m-2 rounded-xl transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 "
+        >
           <span className="px-2">Log In With Google</span>
         </div>
         <div className=" m-2 rounded-xl  transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 ">
-          <span className="px-2">Log In With Apple</span>
+          <span className="px-2">Log In With Git Hub</span>
         </div>
       </div>
       <div className="my-3 w-full  flex justify-center items-center">

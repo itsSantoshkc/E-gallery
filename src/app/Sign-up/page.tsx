@@ -1,10 +1,73 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
-import React from "react";
+import { toast } from "sonner";
+
+import React, { FormEvent, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 type Props = {};
 
 const page = (props: Props) => {
+  const EmailRef = useRef<HTMLInputElement | null>(null);
+  const PasswordRef = useRef<HTMLInputElement | null>(null);
+  const ConfirmPasswordRef = useRef<HTMLInputElement | null>(null);
+  const handleToast = () => {
+    toast(
+      <div className=" h-full text-white bg-red-400">
+        A custom toast with default styling
+      </div>
+    );
+  };
+
+  const router = useRouter();
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (PasswordRef.current?.value !== ConfirmPasswordRef.current?.value) {
+      return toast.error("Password Doesn't match");
+    }
+    const formData = {
+      email: EmailRef.current?.value,
+      password: PasswordRef.current?.value,
+    };
+
+    const response = await fetch("http://localhost:3000/api/auth/register", {
+      method: "post",
+      body: JSON.stringify(formData),
+    });
+
+    const responseData = await response.json();
+
+    if (response.status === 401) {
+      return toast.error(responseData.message);
+    }
+
+    if (response.status === 400) {
+      return toast.success(responseData.message);
+    }
+
+    const signInResponse = await signIn("credentials", {
+      email: EmailRef.current?.value,
+      password: PasswordRef.current?.value,
+      redirect: false,
+    });
+    if (signInResponse?.error !== null) {
+      return toast.error(signInResponse?.error);
+    }
+
+    router.push("/email-verification");
+
+    // const response = await signIn("credentials", {
+    //   email: EmailRef.current?.value,
+    //   password: PasswordRef.current?.value,
+    //   redirect: false,
+    // });
+    // if (response?.error !== null) {
+    //   return console.log(response?.error);
+    // }
+    // router.push("/");
+  };
   return (
     <div className="h-full  overflow-y-hidden w-screen flex justify-center items-center">
       <div className=" flex   flex-col sm:w-3/4 sm:px-5 md:w-1/2 lg:w-1/3 xl:w-1/4  py-5 w-full  mx-4 rounded-xl bg-stone-200 ">
@@ -21,7 +84,10 @@ const page = (props: Props) => {
           <div className=" m-2  border rounded-xl transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 ">
             <span className="px-2  ">Sign In With Google</span>
           </div>
-          <div className=" m-2 rounded-xl  transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 ">
+          <div
+            onClick={handleToast}
+            className=" m-2 rounded-xl  transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 "
+          >
             <span className="px-2">Sign In With Apple</span>
           </div>
         </div>
@@ -30,7 +96,7 @@ const page = (props: Props) => {
           <Separator className="bg-stone-400 w-[90%]  " />
         </div>
         <div className="mx-2">
-          <form className="flex flex-col ">
+          <form className="flex flex-col " onSubmit={handleSubmit}>
             <label
               htmlFor="email"
               className="px-3 my-1 font-bold text-stone-600"
@@ -38,6 +104,7 @@ const page = (props: Props) => {
               Email Address
             </label>
             <input
+              ref={EmailRef}
               type="email"
               name="email"
               className="h-12 px-3 rounded-xl"
@@ -51,6 +118,7 @@ const page = (props: Props) => {
             </label>
             <div className="relative w-full h-12 flex items-center   rounded-xl">
               <input
+                ref={PasswordRef}
                 type="password"
                 name="password"
                 className="w-full h-full px-3 rounded-xl"
@@ -59,17 +127,18 @@ const page = (props: Props) => {
               <span className="absolute right-5">%</span>
             </div>
             <label
-              htmlFor="Re-password"
+              htmlFor="ConfirmYourPassword"
               className="px-3 font-bold text-stone-600 my-1"
             >
-              Re-Type Password
+              Confirm Your Password
             </label>
             <div className="relative w-full h-12 flex items-center   rounded-xl">
               <input
+                ref={ConfirmPasswordRef}
                 type="password"
-                name="Re-password"
+                name="ConfirmYourPassword"
                 className="w-full h-full px-3 rounded-xl"
-                placeholder="Re-type Your Password"
+                placeholder="Confirm Your Password"
               />
               <span className="absolute right-5">%</span>
             </div>

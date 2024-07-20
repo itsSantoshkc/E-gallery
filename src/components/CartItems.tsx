@@ -48,7 +48,7 @@ const CartItems = (props: Props) => {
                     </button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Remove an Item</p>
+                    <span>Remove an Item</span>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -61,7 +61,7 @@ const CartItems = (props: Props) => {
                     </button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Add an Item</p>
+                    <span>Add an Item</span>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -74,7 +74,7 @@ const CartItems = (props: Props) => {
                   </button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Delete Item</p>
+                  <span>Delete Item</span>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

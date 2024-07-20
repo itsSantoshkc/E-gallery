@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import SessionWrapper from "@/components/SessionWrapper";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "E-Gallery",
@@ -14,13 +16,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <div className="h-[5vh]">
-          <Navbar />
-        </div>
-        <div className="h-[95vh]">{children}</div>
-      </body>
-    </html>
+    <SessionWrapper>
+      <html lang="en">
+        <body>
+          <div className="h-[5vh]">
+            <Navbar />
+          </div>
+          <div className="h-[95vh]">{children}</div>
+          <Toaster richColors />
+        </body>
+      </html>
+    </SessionWrapper>
   );
 }

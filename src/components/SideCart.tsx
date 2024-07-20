@@ -116,55 +116,50 @@ const SideCart = (props: Props) => {
     },
   ];
   return (
-    <>
-      <Sheet key={"right"}>
-        <SheetTrigger>
-          <IoCartOutline className="h-7 w-7 md:mr-6 " />
-        </SheetTrigger>
-        <SheetContent
-          side={"right"}
-          className="w-full z-[999] p-0 m-0 flex flex-col  overflow-y-hidden h-[100vh]"
-        >
-          <SheetHeader className="h-[7dvh] md:h-[10dvh]  border flex justify-center items-center ">
-            <SheetTitle className="text-2xl  ">
-              Items In Your Cart...
-            </SheetTitle>
-          </SheetHeader>
-          <SheetDescription className="text-black">
-            <ScrollArea className="h-[70dvh]  md:h-[75vh]">
-              {cartItems.map((item, idx) => (
-                <CartItems
-                  key={idx}
-                  ProductName={item.ProductName}
-                  ProductPrice={item.ProductPrice}
-                  ProductType={item.ProductType}
-                  ProductVariant={item.ProductVariant}
-                  productImage={item.productImage}
-                />
-              ))}
-            </ScrollArea>
-          </SheetDescription>
-          <SheetFooter className="w-full   ">
-            <div className="flex h-[10dvh] border-t md:h-[15vh] flex-col items-center justify-around w-full">
-              <h1 className="w-full py-2 text-xl font-bold text-center md:text-2xl">
-                Check Out
-              </h1>
-              <Separator className="w-3/4" />
+    <Sheet key={"right"}>
+      <SheetTrigger>
+        <IoCartOutline className="h-7 w-7 md:mr-6 " />
+      </SheetTrigger>
+      <SheetContent
+        side={"right"}
+        className="w-full z-[999] gap-0 p-0 m-0 flex flex-col  overflow-y-hidden h-[100vh]"
+      >
+        <SheetHeader className="h-[7dvh] md:h-[10dvh]   border-b flex justify-center items-center ">
+          <SheetTitle className="text-2xl">Items In Your Cart...</SheetTitle>
+        </SheetHeader>
 
-              <div className="flex justify-center w-full my-2">
-                <h1 className="mx-2 text-lg font-bold md:text-xl">Total :</h1>
-                <h1 className="mx-2 text-lg font-bold md:text-xl">
-                  $1,000,000,000
-                </h1>
-              </div>
-              <Button className="p-4 h-10 md:mb-2 md:h-10 ">
-                Proceed To Checkout
-              </Button>
+        <ScrollArea className="h-[70dvh]  md:h-[75vh]">
+          {cartItems.map((item, idx) => (
+            <CartItems
+              key={idx}
+              ProductName={item.ProductName}
+              ProductPrice={item.ProductPrice}
+              ProductType={item.ProductType}
+              ProductVariant={item.ProductVariant}
+              productImage={item.productImage}
+            />
+          ))}
+        </ScrollArea>
+        <SheetFooter className="w-full">
+          <div className="flex h-[10dvh] border-t md:h-[15vh] flex-col items-center justify-around w-full">
+            <h1 className="w-full py-2 text-xl font-bold text-center md:text-2xl">
+              Check Out
+            </h1>
+            <Separator className="w-3/4" />
+
+            <div className="flex justify-center w-full my-2">
+              <h1 className="mx-2 text-lg font-bold md:text-xl">Total :</h1>
+              <h1 className="mx-2 text-lg font-bold md:text-xl">
+                $1,000,000,000
+              </h1>
             </div>
-          </SheetFooter>
-        </SheetContent>
-      </Sheet>
-    </>
+            <Button className="p-4 bg-stone-500 hover:bg-stone-400 h-10 md:mb-2 md:h-10 ">
+              Proceed To Checkout
+            </Button>
+          </div>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   );
 };
 

@@ -1,0 +1,83 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1720841490245,
+      "tag": "0000_keen_inhumans",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1720879985520,
+      "tag": "0001_flaky_vector",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1720883206664,
+      "tag": "0002_simple_clea",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1721207437523,
+      "tag": "0003_fancy_blizzard",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1721219697078,
+      "tag": "0004_marvelous_maggott",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1721231017374,
+      "tag": "0005_daffy_meteorite",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1721231106884,
+      "tag": "0006_dear_power_pack",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1721231129341,
+      "tag": "0007_brown_mesmero",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1721232405294,
+      "tag": "0008_brief_nighthawk",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1721232535117,
+      "tag": "0009_grey_jigsaw",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1721232552720,
+      "tag": "0010_powerful_stellaris",
+      "breakpoints": true
+    }
+  ]
+}
