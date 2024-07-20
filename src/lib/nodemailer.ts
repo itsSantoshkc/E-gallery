@@ -14,8 +14,8 @@ export const sendEmail = async (emailInfo: emailInfo) => {
       port: 465,
       secure: true,
       auth: {
-        user: "batmankc7@gmail.com",
-        pass: "qrww nxgr qcti wfco",
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
         //TODO: add these credentials to .env file
       },
     });

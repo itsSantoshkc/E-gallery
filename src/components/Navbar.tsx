@@ -61,7 +61,7 @@ const Navbar = (props: Props) => {
               </div>
             )}
             {session && (
-              <div>
+              <div className="h-full *:mx-2 md:*:mx-0 flex items-center">
                 <SideCart />
                 <IoSearch
                   onClick={() => setShowSearch(!showSearch)}

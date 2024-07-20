@@ -118,7 +118,7 @@ const SideCart = (props: Props) => {
   return (
     <Sheet key={"right"}>
       <SheetTrigger>
-        <IoCartOutline className="h-7 w-7 md:mr-6 " />
+        <IoCartOutline className="h-7 w-7 md:h-9 md:w-9 md:mr-6 " />
       </SheetTrigger>
       <SheetContent
         side={"right"}
