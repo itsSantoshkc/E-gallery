@@ -9,18 +9,10 @@ import { signIn } from "next-auth/react";
 type Props = {};
 
 const page = (props: Props) => {
+  const router = useRouter();
   const EmailRef = useRef<HTMLInputElement | null>(null);
   const PasswordRef = useRef<HTMLInputElement | null>(null);
   const ConfirmPasswordRef = useRef<HTMLInputElement | null>(null);
-  const handleToast = () => {
-    toast(
-      <div className=" h-full text-white bg-red-400">
-        A custom toast with default styling
-      </div>
-    );
-  };
-
-  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -57,16 +49,6 @@ const page = (props: Props) => {
     }
 
     router.push("/email-verification");
-
-    // const response = await signIn("credentials", {
-    //   email: EmailRef.current?.value,
-    //   password: PasswordRef.current?.value,
-    //   redirect: false,
-    // });
-    // if (response?.error !== null) {
-    //   return console.log(response?.error);
-    // }
-    // router.push("/");
   };
   return (
     <div className="h-full  overflow-y-hidden w-screen flex justify-center items-center">
@@ -84,10 +66,7 @@ const page = (props: Props) => {
           <div className=" m-2  border rounded-xl transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 ">
             <span className="px-2  ">Sign In With Google</span>
           </div>
-          <div
-            onClick={handleToast}
-            className=" m-2 rounded-xl  transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 "
-          >
+          <div className=" m-2 rounded-xl  transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 ">
             <span className="px-2">Sign In With Apple</span>
           </div>
         </div>

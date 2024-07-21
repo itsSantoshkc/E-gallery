@@ -19,10 +19,10 @@ export default function RootLayout({
     <SessionWrapper>
       <html lang="en">
         <body>
-          <div className="h-[5vh]">
+          <div className="max-h-[5vh] ">
             <Navbar />
           </div>
-          <div className="h-[95vh]">{children}</div>
+          <div className="min-h-[95vh] pt-[5vh] ">{children}</div>
           <Toaster richColors />
         </body>
       </html>

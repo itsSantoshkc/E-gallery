@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, Suspense, useState } from "react";
 import Image from "next/image";
 import SlidingTab from "@/components/SlidingTab";
 import { BiSort } from "react-icons/bi";
@@ -15,6 +15,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import GalleryImage from "@/components/GalleryImage";
+import Skeleton from "@/components/Skeleton";
 
 export default function Home() {
   const [position, setPosition] = useState("A-Z");
@@ -89,11 +91,10 @@ export default function Home() {
       <div className="flex justify-center w-full">
         <div className="grid w-full grid-cols-1 gap-6 m-6 md:grid-cols-2 lg:w-5/6 2xl:grid-cols-4">
           {Imagedata?.map((img, idx) => (
-            <div key={idx} className="w-full h-96 ">
-              <img
-                className="object-cover w-full h-full rounded-xl"
-                src={img}
-              />
+            <div key={idx} className="w-full *:rounded-xl h-96 ">
+              <Suspense fallback={<Skeleton />}>
+                <GalleryImage image={img} id={idx} />
+              </Suspense>
             </div>
           ))}
         </div>
