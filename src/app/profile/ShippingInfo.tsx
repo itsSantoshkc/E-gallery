@@ -40,9 +40,7 @@ const ShippingInfo = (props: Props) => {
               <SelectGroup className=" *:text-sm rounded-xl sm:*:text-base">
                 <SelectLabel>Province</SelectLabel>
                 <SelectItem value="Province 1">Province 1</SelectItem>
-                <SelectItem value="Madhesh Pradesh">
-                  Madhesh Pradesh.
-                </SelectItem>
+                <SelectItem value="Madhesh Pradesh">Madhesh Pradesh</SelectItem>
                 <SelectItem value="Bagmati">Bagmati</SelectItem>
                 <SelectItem value="Gandaki">Gandaki</SelectItem>
                 <SelectItem value="Lumbini">Lumbini</SelectItem>
