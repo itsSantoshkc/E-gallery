@@ -21,7 +21,9 @@ const Navbar = (props: Props) => {
   const [showSearch, setShowSearch] = useState<boolean>(false);
 
   const { data: session } = useSession();
+
   console.log(session);
+  //Session is null when logged out and undefined when data is fetching
 
   const handleLogOut = () => {
     signOut();

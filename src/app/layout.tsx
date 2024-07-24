@@ -22,7 +22,7 @@ export default function RootLayout({
           <div className="max-h-[5vh] ">
             <Navbar />
           </div>
-          <div className="min-h-[95vh] pt-[5vh] ">{children}</div>
+          <div className="h-[95vh] pt-[6vh] ">{children}</div>
           <Toaster richColors />
         </body>
       </html>

@@ -53,11 +53,11 @@ const page = ({ params }: { params: { id: string } }) => {
               <div className="flex justify-between w-full items-center my-6">
                 <div className="*:mr-4">
                   <span className="text-2xl transition-colors duration-300 bg-stone-500 hover:border-stone-400 border-stone-500 hover:bg-stone-400 text-white cursor-pointer border  rounded-xl px-4  p-1 ">
-                    +
+                    -
                   </span>
                   <span className=" px-2  p-1 border-b text-2xl">0</span>
                   <span className="text-2xl border cursor-pointer rounded-xl px-4 bg-stone-500 hover:border-stone-400 border-stone-500 hover:bg-stone-400 text-white  p-1 ">
-                    -
+                    +
                   </span>
                 </div>
                 <Button className="bg-stone-500  text-xl p-4  hover:bg-stone-400">

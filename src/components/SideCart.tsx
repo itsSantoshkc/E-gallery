@@ -13,6 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import CartItems from "./CartItems";
+import Link from "next/link";
 
 type Props = {};
 
@@ -153,9 +154,11 @@ const SideCart = (props: Props) => {
                 $1,000,000,000
               </h1>
             </div>
-            <Button className="p-4 bg-stone-500 hover:bg-stone-400 h-10 md:mb-2 md:h-10 ">
-              Proceed To Checkout
-            </Button>
+            <Link href={"/checkout"}>
+              <Button className="p-4 bg-stone-500 hover:bg-stone-400 h-10 md:mb-2 md:h-10 ">
+                Proceed To Checkout
+              </Button>
+            </Link>
           </div>
         </SheetFooter>
       </SheetContent>
