@@ -24,7 +24,10 @@ export const reSendVerificationToken = async (id: string, email: string) => {
 
 export const verifyUser = async (id: string) => {
   try {
-    await db.update(users).set({ emailVerified: null }).where(eq(users.id, id));
+    await db
+      .update(users)
+      .set({ emailVerified: null, verificationToken: null })
+      .where(eq(users.id, id));
     return { message: "Email has been verified" };
   } catch (error: any) {
     throw new Error(error);

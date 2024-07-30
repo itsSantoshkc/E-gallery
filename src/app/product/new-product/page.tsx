@@ -1,27 +1,38 @@
 "use client";
-import React, { FormEvent } from "react";
+import React, { FormEvent, useRef } from "react";
 import { FaCamera } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import NewImage from "./newImage";
 
 type Props = {};
 
 const page = (props: Props) => {
+  const formRef = useRef<HTMLFormElement>(null);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(e);
-    // console.log(e.target?.form[1].values);
-    console.log("Hello World");
-  };
+    console.log(formRef);
+    if (formRef.current === null || formRef.current === undefined) {
+      return;
+    }
 
-  const handleFileChange = (e: any) => {
-    // console.log(e.target.disbaled);
-    // console.log(e.target.files[0]);
-    // console.log(e.target?.previousElementSibling.disbaled);
-    console.log(e);
+    console.log(formRef.current[0]);
+    console.log(formRef.current[1]);
+    console.log(formRef.current[2]);
+    console.log(formRef.current[3]);
+    console.log(formRef.current[4]);
+    console.log(formRef.current[5]);
+    console.log(formRef.current[6]);
+    console.log(formRef.current[7]);
+    console.log(formRef.current[8]);
+    console.log(formRef.current[9]);
+    // console.log(e.target?.form[1].value);
+    console.log("Hello World");
   };
 
   return (
     <div className="min-h-[90vh] my-20 w-full  flex justify-center items-center">
       <form
+        ref={formRef}
         onSubmit={handleSubmit}
         encType="multipart/form-data"
         className="flex flex-col xl:flex-row w-full mx-4 md:w-3/4 lg:w-2/3 xl:w-[80%] bg-stone-300 rounded-xl xl:pb-8"
@@ -31,65 +42,12 @@ const page = (props: Props) => {
             File Upload
           </h1>
           <div className="grid grid-cols-3 gap-3 p-3 xl:px-8 *:cursor-pointer *:h-44 md:*:h-64 xl:*:h-80 *:rounded-xl items-center place-content-center ">
-            <label className="flex items-center justify-center text-5xl transition-colors duration-300 border border-dashed hover:bg-stone-400 hover:text-stone-300 text-stone-600 border-stone-500">
-              <img
-                className="object-cover w-full h-full rounded-xl"
-                src="sd"
-                hidden
-              />
-              <input
-                id="image-1"
-                onChange={handleFileChange}
-                type="file"
-                hidden
-              />
-              <FaCamera />
-            </label>
-            <label className="flex items-center justify-center text-5xl transition-colors duration-300 border border-dashed border-stone-500 hover:bg-stone-400 text-stone-600 hover:text-stone-300">
-              <FaCamera />
-              <input
-                id="image-2"
-                type="file"
-                hidden
-                onChange={handleFileChange}
-              />
-            </label>
-            <label className="flex items-center justify-center text-5xl transition-colors duration-300 border border-dashed border-stone-500 hover:bg-stone-400 text-stone-600 hover:text-stone-300">
-              <input
-                onChange={handleFileChange}
-                id="image-3"
-                type="file"
-                hidden
-              />
-              <FaCamera />
-            </label>
-            <label className="flex items-center justify-center text-5xl transition-colors duration-300 border border-dashed border-stone-500 hover:bg-stone-400 text-stone-600 hover:text-stone-300">
-              <input
-                onChange={handleFileChange}
-                id="image-4"
-                type="file"
-                hidden
-              />
-              <FaCamera />
-            </label>
-            <label className="flex items-center justify-center text-5xl transition-colors duration-300 border border-dashed border-stone-500 hover:bg-stone-400 text-stone-600 hover:text-stone-300">
-              <input
-                onChange={handleFileChange}
-                id="image-5"
-                type="file"
-                hidden
-              />
-              <FaCamera />
-            </label>
-            <label className="flex items-center justify-center text-5xl transition-colors duration-300 border border-dashed border-stone-500 hover:bg-stone-400 text-stone-600 hover:text-stone-300">
-              <input
-                onChange={handleFileChange}
-                id="image-6"
-                type="file"
-                hidden
-              />
-              <FaCamera />
-            </label>
+            <NewImage />
+            <NewImage />
+            <NewImage />
+            <NewImage />
+            <NewImage />
+            <NewImage />
           </div>
         </div>
         <div className="xl:flex xl:flex-col xl:items-center xl:justify-center xl:*:w-[90%] xl:*:mx-8  xl:w-1/2 xl:min-h-full">

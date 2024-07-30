@@ -15,6 +15,7 @@ type Props = {};
 
 const page = (props: Props) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
+
   const handleSubmit = (e: any | FormEvent) => {
     //post the data
     // check if email ,password and everything
@@ -22,7 +23,6 @@ const page = (props: Props) => {
     setIsEdit(!isEdit);
     console.log(e.target?.form[6].value);
   };
-
   return (
     <>
       <div>

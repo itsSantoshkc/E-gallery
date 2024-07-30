@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 
 import Link from "next/link";
@@ -22,13 +22,14 @@ const Navbar = (props: Props) => {
 
   const { data: session } = useSession();
 
-  console.log(session);
-  //Session is null when logged out and undefined when data is fetching
-
   const handleLogOut = () => {
     signOut();
     redirect("/Login");
   };
+
+  if (session === undefined) {
+    return <div className="h-full w-full overflow-hidden "></div>;
+  }
 
   return (
     <div className="w-full fixed z-[999]    bg-white  h-16">

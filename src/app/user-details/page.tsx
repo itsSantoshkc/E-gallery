@@ -21,6 +21,8 @@ const page = (props: Props) => {
   const [state, setState] = useState<string>("");
   const tabContainer = useRef<HTMLFormElement>(null);
 
+  //Swiping error can be fixed with fixed width in every media screen
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const userDetails = {
