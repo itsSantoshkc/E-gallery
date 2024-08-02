@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -14,112 +15,48 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import CartItems from "./CartItems";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 type Props = {};
 
+type cartItem = {
+  name: string;
+  productId: string;
+  userId: string;
+  itemQuantity: number;
+  itemPrice: number;
+  productImages: string[];
+};
+
 const SideCart = (props: Props) => {
-  const cartItems = [
-    {
-      ProductName: "Samsung Galaxy 24",
-      ProductPrice: 999.99,
-      ProductVariant: "8/256",
-      ProductType: "White",
-      productImage:
-        "https://m.media-amazon.com/images/I/51d00nS-ufL._AC_SX679_.jpg",
-    },
-    {
-      ProductName: "Iphone 15 Pro Max",
-      ProductPrice: 999.99,
-      ProductVariant: "8/256",
-      ProductType: "White",
-      productImage:
-        "https://m.media-amazon.com/images/I/71x6vVEqy9L._AC_UF894,1000_QL80_FMwebp_.jpg",
-    },
-    {
-      ProductName: "Samsung Galaxy 24",
-      ProductPrice: 999.99,
-      ProductVariant: "8/256",
-      ProductType: "White",
-      productImage:
-        "https://m.media-amazon.com/images/I/51d00nS-ufL._AC_SX679_.jpg",
-    },
-    {
-      ProductName: "Iphone 15 Pro Max",
-      ProductPrice: 999.99,
-      ProductVariant: "8/256",
-      ProductType: "White",
-      productImage:
-        "https://m.media-amazon.com/images/I/71x6vVEqy9L._AC_UF894,1000_QL80_FMwebp_.jpg",
-    },
-    {
-      ProductName: "Samsung Galaxy 24",
-      ProductPrice: 999.99,
-      ProductVariant: "8/256",
-      ProductType: "White",
-      productImage:
-        "https://m.media-amazon.com/images/I/51d00nS-ufL._AC_SX679_.jpg",
-    },
-    {
-      ProductName: "Iphone 15 Pro Max",
-      ProductPrice: 999.99,
-      ProductVariant: "8/256",
-      ProductType: "White",
-      productImage:
-        "https://m.media-amazon.com/images/I/71x6vVEqy9L._AC_UF894,1000_QL80_FMwebp_.jpg",
-    },
-    {
-      ProductName: "Samsung Galaxy 24",
-      ProductPrice: 999.99,
-      ProductVariant: "8/256",
-      ProductType: "White",
-      productImage:
-        "https://m.media-amazon.com/images/I/51d00nS-ufL._AC_SX679_.jpg",
-    },
-    {
-      ProductName: "Iphone 15 Pro Max",
-      ProductPrice: 999.99,
-      ProductVariant: "8/256",
-      ProductType: "White",
-      productImage:
-        "https://m.media-amazon.com/images/I/71x6vVEqy9L._AC_UF894,1000_QL80_FMwebp_.jpg",
-    },
-    {
-      ProductName: "Iphone 15 Pro Max",
-      ProductPrice: 999.99,
-      ProductVariant: "8/256",
-      ProductType: "White",
-      productImage:
-        "https://m.media-amazon.com/images/I/71x6vVEqy9L._AC_UF894,1000_QL80_FMwebp_.jpg",
-    },
-    {
-      ProductName: "Iphone 15 Pro Maxs",
-      ProductPrice: 999.992,
-      ProductVariant: "8/256",
-      ProductType: "White",
-      productImage:
-        "https://m.media-amazon.com/images/I/71x6vVEqy9L._AC_UF894,1000_QL80_FMwebp_.jpg",
-    },
-    {
-      ProductName: "Iphone 15 Pro Max",
-      ProductPrice: 999.99,
-      ProductVariant: "8/256",
-      ProductType: "White",
-      productImage:
-        "https://m.media-amazon.com/images/I/71x6vVEqy9L._AC_UF894,1000_QL80_FMwebp_.jpg",
-    },
-    {
-      ProductName: "Samsung Galaxy 24",
-      ProductPrice: 999.99,
-      ProductVariant: "8/256",
-      ProductType: "White",
-      productImage:
-        "https://m.media-amazon.com/images/I/51d00nS-ufL._AC_SX679_.jpg",
-    },
-  ];
+  const { data: session } = useSession();
+  const [cartItems, setcartItems] = useState([]);
+
+  const userId = session?.user.id;
+  const getCartItems = async () => {
+    const response = await fetch("http://localhost:3000/api/cart", {
+      method: "post",
+      body: JSON.stringify({
+        userId: userId,
+      }),
+    });
+    const responseData = await response.json();
+    setcartItems(responseData);
+  };
+
+  useEffect(() => {
+    getCartItems();
+  }, []);
+
+  console.log(cartItems[0]);
+
   return (
     <Sheet key={"right"}>
       <SheetTrigger>
-        <IoCartOutline className="h-7 w-7 md:h-9 md:w-9 md:mr-6 " />
+        <IoCartOutline
+          onClick={getCartItems}
+          className="h-7 w-7 md:h-9 md:w-9 md:mr-6 "
+        />
       </SheetTrigger>
       <SheetContent
         side={"right"}
@@ -130,14 +67,13 @@ const SideCart = (props: Props) => {
         </SheetHeader>
 
         <ScrollArea className="h-[70dvh]  md:h-[75vh]">
-          {cartItems.map((item, idx) => (
+          {cartItems.map((item: cartItem, idx) => (
             <CartItems
-              key={idx}
-              ProductName={item.ProductName}
-              ProductPrice={item.ProductPrice}
-              ProductType={item.ProductType}
-              ProductVariant={item.ProductVariant}
-              productImage={item.productImage}
+              key={item.productId}
+              ProductName={item.name}
+              ProductPrice={item.itemPrice}
+              productImage={item.productImages[0]}
+              itemQuantity={item.itemQuantity}
             />
           ))}
         </ScrollArea>

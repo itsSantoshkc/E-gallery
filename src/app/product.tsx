@@ -48,6 +48,7 @@ const Product = () => {
                   name={product.name}
                   image={product.image}
                   id={product.id}
+                  price={product.price}
                   ownerName={product.ownerName}
                 />
               </Suspense>

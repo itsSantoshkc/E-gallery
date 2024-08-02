@@ -11,11 +11,14 @@ export const getProductById = async (id: string) => {
     description: string | null;
     availableQuantity: number | null;
     OwnerId: string;
+    ownerName?: string | null;
     productImages?: (string | null)[];
   }[] = await db.select().from(product).where(eq(product.id, id)).limit(1);
 
   const productImages = await getProductImages(id);
-  productData[0] = { ...productData[0], productImages };
+  // image:ownerAvatar for getting owner avatar
+  const { name: ownerName }: any = await getUserById(productData[0].OwnerId);
+  productData[0] = { ...productData[0], ownerName, productImages };
   if (productData.length > 0) {
     return productData[0];
   }

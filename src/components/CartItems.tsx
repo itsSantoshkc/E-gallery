@@ -1,3 +1,4 @@
+"use client";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 import { HiMiniMinusCircle, HiMiniPlusCircle } from "react-icons/hi2";
@@ -12,23 +13,26 @@ import {
 type Props = {
   ProductName: String;
   ProductPrice: number;
+  itemQuantity: number;
   ProductVariant?: String;
   ProductType?: String;
-  productImage: string;
+  productImage?: string;
 };
 
 const CartItems = (props: Props) => {
+  const IncrementCartItem = () => {
+    return;
+  };
   return (
     <>
       <div className="flex items-center h-full py-5 justify-evenly">
         <div className="flex flex-col mx-2 ">
           <div className="h-full p-2 border rounded-lg ">
-            <img
-              className="object-contain w-16 h-16 "
-              src={props.productImage}
-            />
+            <img className="object-fill w-16 h-16 " src={props.productImage} />
           </div>
-          <span className="py-1 font-bold">$ {props.ProductPrice}</span>
+          <span className="py-1 font-bold">
+            $ {props.ProductPrice * props.itemQuantity}
+          </span>
         </div>
         <div className="flex flex-col justify-center w-3/5 h-full ">
           <h3 className="mt-2 font-bold">{props.ProductName}</h3>
@@ -52,11 +56,16 @@ const CartItems = (props: Props) => {
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-              <span className="w-full text-xl text-center border-b">0</span>
+              <span className="w-full text-xl text-center border-b">
+                {props.itemQuantity}
+              </span>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button className="w-full text-2xl font-bold text-center rounded-sm cursor-pointer ">
+                    <button
+                      onClick={IncrementCartItem}
+                      className="w-full text-2xl font-bold text-center rounded-sm cursor-pointer "
+                    >
                       <HiMiniPlusCircle className="w-full text-2xl font-bold text-center " />
                     </button>
                   </TooltipTrigger>

@@ -11,16 +11,13 @@ import { users } from "./userSchema";
 import { product } from "./ProductSchema";
 
 export const cart = mysqlTable("cart", {
-  id: varchar("id", { length: 255 })
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
-
   itemQuantity: int("itemQuantity"),
   itemPrice: float("itemPrice"),
   userId: varchar("userId", { length: 255 })
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   productId: varchar("productId", { length: 255 })
+  .primaryKey()
     .notNull()
     .references(() => product.id, { onDelete: "cascade" }),
 });

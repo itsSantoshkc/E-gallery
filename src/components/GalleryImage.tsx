@@ -13,6 +13,7 @@ type Props = {
   OwnerId?: string;
   image: string;
   ownerName: string;
+  price: number;
 };
 
 const GalleryImage = (props: Props) => {
@@ -21,13 +22,17 @@ const GalleryImage = (props: Props) => {
   const userId = session?.user.id === undefined ? null : session?.user.id;
 
   const AddItemInCart = async () => {
-    const respose = await fetch("api/cart/" + props.id, {
+    const cartItemData = {
+      userId: userId,
+      itemQuantity: 1,
+      itemPrice: props.price,
+    };
+    const respose = await fetch("http://localhost:3000/api/cart/" + props.id, {
       method: "post",
-      body: JSON.stringify({
-        userId: userId,
-      }),
+      body: JSON.stringify(cartItemData),
     });
-    console.log(await respose.json());
+    const responseData = await respose.json();
+    return responseData;
   };
 
   return (
@@ -51,7 +56,10 @@ const GalleryImage = (props: Props) => {
 
         <div className="flex items-center justify-between w-full px-3">
           <h3 className="font-bold">By : {props.ownerName}</h3>
-          <Button className=" bg-stone-500 hover:bg-stone-400">
+          <Button
+            onClick={AddItemInCart}
+            className=" bg-stone-500 hover:bg-stone-400"
+          >
             Add to Cart
           </Button>
         </div>
