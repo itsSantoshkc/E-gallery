@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -13,9 +13,12 @@ import { IoCartOutline } from "react-icons/io5";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import CartItems from "./CartItems";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { toast } from "sonner";
+import { CartItemSkeleton } from "./Skeleton";
+import { product } from "@/schema/ProductSchema";
+import { MdRemoveShoppingCart } from "react-icons/md";
 
 type Props = {};
 
@@ -27,10 +30,12 @@ type cartItem = {
   itemPrice: number;
   productImages: string[];
 };
+const CartItems = lazy(() => import("@/components/CartItems"));
 
 const SideCart = (props: Props) => {
   const { data: session } = useSession();
-  const [cartItems, setcartItems] = useState([]);
+  const [cartItems, setcartItems] = useState<cartItem[] | []>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const userId = session?.user.id;
   const getCartItems = async () => {
@@ -40,14 +45,58 @@ const SideCart = (props: Props) => {
         userId: userId,
       }),
     });
-    const responseData = await response.json();
-    setcartItems(responseData);
+
+    if (response.status === 200) {
+      const responseData = await response.json();
+      return setcartItems(() => responseData);
+    }
+    return setcartItems([]);
   };
 
   useEffect(() => {
     getCartItems();
   }, []);
 
+  const handleCartItemDelete = async (productId: string) => {
+    setLoading(true);
+    const response = await fetch(
+      "http://localhost:3000/api/cart/" + productId,
+      {
+        method: "delete",
+      }
+    );
+    const { message } = await response.json();
+    if (response.status === 200) {
+      await getCartItems();
+      setLoading(false);
+      return toast.success(message);
+    }
+    setLoading(false);
+    return toast.error(message);
+  };
+
+  const handleCartItemQuantity = async (
+    productId: string,
+    itemQuantity: number
+  ) => {
+    // setLoading(true);
+    const response = await fetch(
+      "http://localhost:3000/api/cart/" + productId,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          itemQuantity: itemQuantity,
+        }),
+      }
+    );
+    if (response.status === 200) {
+      await getCartItems();
+      return setLoading(false);
+    }
+    const { message } = await response.json();
+    setLoading(false);
+    return toast.error(message);
+  };
   return (
     <Sheet key={"right"}>
       <SheetTrigger>
@@ -64,18 +113,41 @@ const SideCart = (props: Props) => {
           <SheetTitle className="text-2xl">Items In Your Cart...</SheetTitle>
         </SheetHeader>
 
-        <ScrollArea className="h-[70dvh]  md:h-[75vh]">
-          {cartItems.map((item: cartItem, idx) => (
-            <CartItems
-              key={item.productId}
-              productId={item.productId}
-              ProductName={item.name}
-              ProductPrice={item.itemPrice}
-              productImage={item.productImages[0]}
-              itemQuantity={item.itemQuantity}
-            />
-          ))}
-        </ScrollArea>
+        {!loading && (
+          <ScrollArea className="h-[70dvh]  md:h-[75vh]">
+            {cartItems.length >= 0 &&
+              cartItems.map((item: cartItem) => (
+                <Suspense fallback={<CartItemSkeleton />} key={item.productId}>
+                  <CartItems
+                    productId={item.productId}
+                    ProductName={item.name}
+                    ProductPrice={item.itemPrice}
+                    productImage={item.productImages[0]}
+                    itemQuantity={item.itemQuantity}
+                    cartItemDelete={handleCartItemDelete}
+                    cartItemQuantity={handleCartItemQuantity}
+                  />
+                </Suspense>
+              ))}
+            {(cartItems.length === undefined || cartItems.length <= 0) && (
+              <div className=" h-[70dvh]  md:h-[75vh] w-full flex justify-center items-center">
+                <h1 className="flex-bold flex items-center *:mx-3 text-stone-500 text-2xl">
+                  Cart is empty
+                  <MdRemoveShoppingCart />
+                </h1>
+              </div>
+            )}
+          </ScrollArea>
+        )}
+
+        {loading && (
+          <div className="h-full w-full flex-col flex justify-center items-center">
+            <div className="loader"></div>
+            <h1 className="flex-semibold text-stone-500 mt-4">
+              Please! wait while cart is loading
+            </h1>
+          </div>
+        )}
         <SheetFooter className="w-full">
           <div className="flex h-[10dvh] border-t md:h-[15vh] flex-col items-center justify-around w-full">
             <Link href={"/checkout"}>

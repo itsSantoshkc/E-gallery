@@ -5,6 +5,7 @@ import {
   mysqlTable,
   primaryKey,
   varchar,
+  date,
 } from "drizzle-orm/mysql-core";
 import type { AdapterAccount } from "next-auth/adapters";
 
@@ -19,6 +20,7 @@ export const users = mysqlTable("user", {
   phone: varchar("phone", { length: 15 }),
   emailVerified: boolean("emailVerified"),
   image: varchar("image", { length: 255 }),
+  birthDate: date("birtdate"),
   verificationToken: int("verificationToken", { unsigned: true }),
 });
 

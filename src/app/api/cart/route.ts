@@ -9,10 +9,7 @@ export async function POST(request: Request) {
     const cartItems = await getItemsInCart(userId);
 
     if (cartItems === null) {
-      return Response.json(
-        { message: "Cart is currently empty" },
-        { status: 401 }
-      );
+      return Response.json({ message: "Cart is currently empty" });
     }
     return Response.json(cartItems, { status: 200 });
   } catch (error: any) {

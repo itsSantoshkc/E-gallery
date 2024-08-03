@@ -1,7 +1,6 @@
 "use client";
-import GalleryImage from "@/components/GalleryImage";
 import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
-import Skeleton from "@/components/Skeleton";
+import { CardSkeleton } from "@/components/Skeleton";
 
 type productData = {
   id: string;
@@ -43,7 +42,7 @@ const Product = () => {
           productData !== undefined &&
           productData?.map((product) => (
             <div key={product.id} className="w-full *:rounded-xl h-96 ">
-              <Suspense fallback={<Skeleton />}>
+              <Suspense fallback={<CardSkeleton />}>
                 <ImageComponent
                   description={product.description}
                   name={product.name}

@@ -10,7 +10,7 @@ type cart = {
   itemPrice: number;
 };
 
-const getCartItemById = async (productId: string) => {
+export const getCartItemById = async (productId: string) => {
   const cartItem = await db
     .select()
     .from(cart)
@@ -19,10 +19,6 @@ const getCartItemById = async (productId: string) => {
   if (cartItem.length > 0) {
     return cartItem[0];
   }
-  return null;
-};
-
-export const deleteItemInCart = async (productId: string) => {
   return null;
 };
 

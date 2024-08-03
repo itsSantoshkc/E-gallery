@@ -1,5 +1,4 @@
 "use client";
-
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import {
@@ -32,12 +31,22 @@ import { useSession } from "next-auth/react";
 
 type Props = {};
 
+type responseData = {
+  name: string;
+  email: string;
+  gender: string;
+  image: string;
+  phone: string;
+  birthDate: any;
+};
+
 const page = (props: Props) => {
   const { data: session } = useSession();
   const userId = session?.user.id;
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
+  const [avatar, setAvatar] = useState<string>("");
   const [gender, setGender] = useState<string>("");
   const [birthDate, setBirthDate] = useState<any>("");
   const [oldPassword, setOldPassword] = useState<string>("");
@@ -59,14 +68,34 @@ const page = (props: Props) => {
   };
 
   const getUserData = async () => {
-    console.log(userId);
+    console.log("user id : " + userId);
+    if (userId === undefined || userId === null) {
+      return;
+    }
+    const response = await fetch("/api/user", {
+      method: "post",
+      body: JSON.stringify({ id: userId }),
+    });
+    // console.log(await response.json());
+    const { name, email, gender, image, phone, birthDate }: responseData =
+      await response.json();
+    setName(name);
+    setprevEmail(email);
+    setGender(gender);
+    setPhone(phone);
+    setBirthDate(birthDate.slice(0, 10));
+    setAvatar(image);
   };
   useEffect(() => {
     getUserData();
-  }, []);
+  }, [userId]);
 
   if (session === undefined) {
-    return <div className="h-screen w-screen ">lOADING</div>;
+    return (
+      <div className="h-full w-full overflow-hidden flex justify-center items-center">
+        <div className="loader "></div>
+      </div>
+    );
   }
 
   return (
@@ -100,19 +129,18 @@ const page = (props: Props) => {
               onSubmit={handleSubmit}
               className="grid content-center grid-cols-1 gap-5 pb-16 md:gap-10 md:grid-cols-2"
             >
-              <div className="flex flex-col items-center justify-center p-5  md:col-start-2 md:col-span-1 md:row-span-4">
+              <div className="flex flex-col items-center justify-center p-5  md:col-start-2 md:col-span-1 md:row-span-5">
                 <img
                   className="object-cover w-48 h-48 border rounded-full cursor-pointer hover:opacity-90"
-                  src="https://i.pinimg.com/564x/6a/fc/5c/6afc5c43a5050054d7482202e3b75239.jpg"
-                  alt="Cat"
+                  src={avatar}
+                  alt={name}
                 />
               </div>
               {isEdit && (
                 <>
-                  <h1 className="p-2 my-5 text-2xl font-bold text-center md:text-3xl col-span-2 lg:col-span-1 md:row-span-1">
+                  <h1 className="p-2 my-5 text-2xl font-bold text-center md:text-3xl col-span-2 lg:col-span-1 md:row-span-2">
                     Personal Information
                   </h1>
-
                   <div className="flex  items-center mx-4 font-semibold col-span-2 md:col-span-1 transition-colors duration-500 bg-white cursor-pointer rounded-xl">
                     <label className="w-1/5 px-2   text-center md:text-base text-sm ">
                       Name
@@ -126,7 +154,6 @@ const page = (props: Props) => {
                       value={name}
                     />
                   </div>
-
                   <div className="flex items-center mx-4  col-span-2 md:col-span-1 font-semibold transition-colors duration-500 bg-white cursor-pointer rounded-xl">
                     <label className="w-1/5 px-2 text-center md:text-base text-sm ">
                       Gender
@@ -145,13 +172,6 @@ const page = (props: Props) => {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="flex  items-center justify-between col-span-2  h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 md:col-span-1 hover:bg-stone-100 rounded-xl">
-                    <h1 className="md:text-base text-sm">Email</h1>
-                    <div className="flex items-center h-full text-sm sm:text-base ">
-                      <h2 className="mx-1 ">{prevEmail}</h2>
-                      <MdOutlineKeyboardArrowRight className="text-3xl" />
-                    </div>
-                  </div>
                   <div className="flex items-center mx-4 font-semibold transition-colors col-span-2 md:col-span-1 duration-500 bg-white cursor-pointer rounded-xl">
                     <label className="w-1/5 px-1 md:px-2  text-center md:text-base text-sm  ">
                       Birth
@@ -165,12 +185,6 @@ const page = (props: Props) => {
                       value={birthDate}
                     />
                   </div>
-
-                  <div className="flex items-center justify-between h-16 col-span-2 md:col-span-1 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 rounded-xl">
-                    <h1 className="md:text-base text-sm">Change Password </h1>
-                    <MdOutlineKeyboardArrowRight className="text-3xl " />
-                  </div>
-
                   <div className="flex  items-center mx-4 font-semibold col-span-2 md:col-span-1 transition-colors duration-500 bg-white cursor-pointer rounded-xl">
                     <label className="w-1/5 px-1 md:px-2  text-center md:text-base text-sm ">
                       Phone
@@ -184,7 +198,17 @@ const page = (props: Props) => {
                       value={phone}
                     />
                   </div>
-
+                  <div className="flex  items-center justify-between col-span-2  h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 md:col-span-1 hover:bg-stone-100 rounded-xl">
+                    <h1 className="md:text-base text-sm">Email</h1>
+                    <div className="flex items-center h-full text-sm sm:text-base ">
+                      <h2 className="mx-1 ">{prevEmail}</h2>
+                      <MdOutlineKeyboardArrowRight className="text-3xl" />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between h-16 col-span-2 md:col-span-1 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 rounded-xl">
+                    <h1 className="md:text-base text-sm">Change Password </h1>
+                    <MdOutlineKeyboardArrowRight className="text-3xl " />
+                  </div>
                   <h1 className="w-full text-2xl font-bold text-center md:text-3xl md:col-span-2">
                     Shipping Address
                   </h1>
@@ -244,6 +268,22 @@ const page = (props: Props) => {
                     </div>
                   </div>
 
+                  <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 rounded-xl">
+                    <h1 className="text-base sm:text-lg">Birth Date </h1>
+                    <div className="flex items-center h-full text-sm sm:text-base ">
+                      <h2 className="mx-1">{birthDate}</h2>
+                      <MdOutlineKeyboardArrowRight className="text-3xl" />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 md:col-span-1 hover:bg-stone-100 rounded-xl">
+                    <h1 className="text-base sm:text-lg">Phone</h1>
+                    <div className="flex items-center h-full text-sm sm:text-base ">
+                      <h2 className="mx-1">+977 {phone}</h2>
+                      <MdOutlineKeyboardArrowRight className="text-3xl" />
+                    </div>
+                  </div>
+
                   <Dialog>
                     <DialogTrigger asChild>
                       <div className="flex items-center justify-between h-16 px-4 mx-4  font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 md:col-span-1 hover:bg-stone-100 rounded-xl">
@@ -271,6 +311,7 @@ const page = (props: Props) => {
                             Current Email Address
                           </label>
                           <input
+                            type="email"
                             placeholder="Enter your current email address"
                             id="current-email"
                             value={prevEmail}
@@ -289,6 +330,7 @@ const page = (props: Props) => {
                           </label>
                           <input
                             id="new-email"
+                            type="email"
                             placeholder="Enter your new email address"
                             value={newEmail}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -309,19 +351,11 @@ const page = (props: Props) => {
                     </DialogContent>
                   </Dialog>
 
-                  <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 rounded-xl">
-                    <h1 className="text-base sm:text-lg">Birth Date </h1>
-                    <div className="flex items-center h-full text-sm sm:text-base ">
-                      <h2 className="mx-1">{birthDate}</h2>
-                      <MdOutlineKeyboardArrowRight className="text-3xl" />
-                    </div>
-                  </div>
-
                   <Dialog>
                     <DialogTrigger asChild>
                       <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 hover:bg-stone-100 rounded-xl">
                         <h1 className="text-base sm:text-lg">
-                          Change Password{" "}
+                          Change Password
                         </h1>
                         <MdOutlineKeyboardArrowRight className="text-3xl" />
                       </div>
@@ -383,13 +417,6 @@ const page = (props: Props) => {
                     </DialogContent>
                   </Dialog>
 
-                  <div className="flex items-center justify-between h-16 px-4 mx-4 font-semibold transition-colors duration-500 cursor-pointer bg-stone-300 md:col-span-1 hover:bg-stone-100 rounded-xl">
-                    <h1 className="text-base sm:text-lg">Phone</h1>
-                    <div className="flex items-center h-full text-sm sm:text-base ">
-                      <h2 className="mx-1">+977 {phone}</h2>
-                      <MdOutlineKeyboardArrowRight className="text-3xl" />
-                    </div>
-                  </div>
                   <div className="flex items-center justify-around h-16 px-4 mx-4 my-5 text-lg md:col-span-2">
                     <Button className="transition-colors duration-500 sm:p-6 bg-stone-500 hover:bg-stone-400">
                       Deactivate

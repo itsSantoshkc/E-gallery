@@ -1,6 +1,7 @@
 import {
   addItemsToCart,
   deleteCartItem,
+  getCartItemById,
   updateCartItemQuantity,
 } from "@/data/cart";
 
@@ -29,12 +30,21 @@ export async function PATCH(
 ) {
   const productId = params.cartId;
   const { itemQuantity } = await request.json();
-
+  const cartItemQuantity = await getCartItemById(productId);
+  if (
+    cartItemQuantity?.itemQuantity !== null &&
+    cartItemQuantity?.itemQuantity !== undefined &&
+    cartItemQuantity?.itemQuantity <= 1 &&
+    itemQuantity === -1
+  ) {
+    await deleteCartItem(productId);
+    return Response.json({ message: "Item removed from cart" });
+  }
   const product = await updateCartItemQuantity(productId, itemQuantity);
   if (product === null) {
     return Response.json({ message: "Failed to add new product to the cart" });
   }
-  return Response.json(product);
+  return Response.json(product, { status: 200 });
 }
 export async function DELETE(
   request: Request,
