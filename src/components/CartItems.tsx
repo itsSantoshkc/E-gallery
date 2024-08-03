@@ -9,8 +9,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { toast } from "sonner";
 
 type Props = {
+  productId: string;
   ProductName: String;
   ProductPrice: number;
   itemQuantity: number;
@@ -20,6 +22,19 @@ type Props = {
 };
 
 const CartItems = (props: Props) => {
+  const handleCartItemDelete = async () => {
+    const response = await fetch(
+      "http://localhost:3000/api/cart/" + props.productId,
+      {
+        method: "delete",
+      }
+    );
+    const { message } = await response.json();
+    if (response.status === 200) {
+      return toast.success(message);
+    }
+    return toast.error(message);
+  };
   const IncrementCartItem = () => {
     return;
   };
@@ -79,7 +94,10 @@ const CartItems = (props: Props) => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <button>
-                    <MdDelete className="text-2xl text-red-600 cursor-pointer" />
+                    <MdDelete
+                      onClick={handleCartItemDelete}
+                      className="text-2xl text-red-600 cursor-pointer"
+                    />
                   </button>
                 </TooltipTrigger>
                 <TooltipContent>

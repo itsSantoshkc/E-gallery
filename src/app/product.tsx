@@ -20,14 +20,15 @@ const Product = () => {
   const [productData, setProductData] = useState<[productData] | []>([]);
   const mainContainer = useRef<HTMLDivElement | null>(null);
 
+  const getProduct = async () => {
+    const response = await fetch("/api/product", {
+      method: "get",
+    });
+    const responsData = await response.json();
+    setProductData(responsData);
+  };
+
   useEffect(() => {
-    const getProduct = async () => {
-      const response = await fetch("/api/product", {
-        method: "get",
-      });
-      const responsData = await response.json();
-      setProductData(responsData);
-    };
     getProduct();
   }, []);
 

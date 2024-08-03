@@ -48,7 +48,7 @@ export default function Home() {
         </h1>
       </div>
       <div className="flex items-center justify-center">
-        <div className="flex items-center justify-center  h-16 w-[90%] md:w-[95%] mx-6 my-2  lg:w-5/6">
+        {/* <div className="flex items-center justify-center  h-16 w-[90%] md:w-[95%] mx-6 my-2  lg:w-5/6">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div className="flex items-center justify-around p-2 text-3xl border cursor-pointer border-stone-500 md:mx-4 rounded-xl">
@@ -77,13 +77,13 @@ export default function Home() {
                   Sort By Pirce
                 </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
+            </DropdownMenuContent> */}
+        {/* </DropdownMenu> */}
 
-          <div className="z-0 w-full h-full ml-2 overflow-hidden md:w-full md:ml-1 md:text-xl">
+        {/* <div className="z-0 w-full h-full ml-2 overflow-hidden md:w-full md:ml-1 md:text-xl">
             <SlidingTab />
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
       </div>
       <Product />
     </main>

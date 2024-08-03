@@ -48,8 +48,6 @@ const SideCart = (props: Props) => {
     getCartItems();
   }, []);
 
-  console.log(cartItems[0]);
-
   return (
     <Sheet key={"right"}>
       <SheetTrigger>
@@ -70,6 +68,7 @@ const SideCart = (props: Props) => {
           {cartItems.map((item: cartItem, idx) => (
             <CartItems
               key={item.productId}
+              productId={item.productId}
               ProductName={item.name}
               ProductPrice={item.itemPrice}
               productImage={item.productImages[0]}
@@ -79,17 +78,6 @@ const SideCart = (props: Props) => {
         </ScrollArea>
         <SheetFooter className="w-full">
           <div className="flex h-[10dvh] border-t md:h-[15vh] flex-col items-center justify-around w-full">
-            <h1 className="w-full py-2 text-xl font-bold text-center md:text-2xl">
-              Check Out
-            </h1>
-            <Separator className="w-3/4" />
-
-            <div className="flex justify-center w-full my-2">
-              <h1 className="mx-2 text-lg font-bold md:text-xl">Total :</h1>
-              <h1 className="mx-2 text-lg font-bold md:text-xl">
-                $1,000,000,000
-              </h1>
-            </div>
             <Link href={"/checkout"}>
               <Button className="p-4 bg-stone-500 hover:bg-stone-400 h-10 md:mb-2 md:h-10 ">
                 Proceed To Checkout

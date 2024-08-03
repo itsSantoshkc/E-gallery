@@ -48,6 +48,14 @@ export const getItemsInCart = async (userId: string) => {
   }
 };
 
+export const deleteCartItem = async (productId: string) => {
+  try {
+    await db.delete(cart).where(eq(cart.productId, productId));
+  } catch (error: any) {
+    return null;
+  }
+};
+
 export const updateCartItemQuantity = async (
   productId: string,
   itemQuantity: number

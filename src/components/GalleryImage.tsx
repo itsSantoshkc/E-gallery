@@ -4,6 +4,7 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Button } from "./ui/button";
+import { toast } from "sonner";
 
 type Props = {
   id: string;
@@ -32,6 +33,7 @@ const GalleryImage = (props: Props) => {
       body: JSON.stringify(cartItemData),
     });
     const responseData = await respose.json();
+    toast.success("Item has been added to cart");
     return responseData;
   };
 

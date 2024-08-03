@@ -40,6 +40,7 @@ const ProductDetails = (props: Props) => {
     };
     try {
       const response = await AddItemInCart(cartItemData);
+      toast.success("Item has been added successfully");
       return response;
     } catch (error: any) {
       toast.error("An Error Occurred!!");
