@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Select,
@@ -11,8 +10,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-
-import { Separator } from "@/components/ui/separator";
 
 type Props = {};
 
@@ -56,7 +53,7 @@ const page = (props: Props) => {
 
   return (
     <div className="h-full max-w-[100vw] w-full flex text-stone-600 justify-center items-center">
-      <div className=" flex overflow-hidden flex-col sm:w-3/4 sm:px-5 md:3/4 lg:w-1/2  xl:w-1/3  py-5 w-full  mx-4 rounded-xl bg-stone-200 ">
+      <div className=" flex overflow-hidden flex-col sm:w-3/4 sm:px-5 md:w-[768px] py-5 w-full  mx-4 rounded-xl bg-stone-200 ">
         <h1 className="w-full  text-3xl text-center  mt-4 pt-3 font-bold">
           User Details
         </h1>

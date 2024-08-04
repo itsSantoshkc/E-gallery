@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -10,169 +11,215 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdRemoveShoppingCart } from "react-icons/md";
+import { HiMiniMinusCircle, HiMiniPlusCircle } from "react-icons/hi2";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useSession } from "next-auth/react";
+import { CheckoutItemSkeleton } from "@/components/Skeleton";
+import { toast } from "sonner";
 
 type Props = {};
 
+type cartItem = {
+  name: string;
+  productId: string;
+  userId: string;
+  itemQuantity: number;
+  itemPrice: number;
+  productImages: string[];
+};
+
+const CheckoutItems = lazy(() => import("@/app/checkout/checkoutItems"));
+
 const page = (props: Props) => {
-  const invoices = [
-    {
-      invoice: "INV001",
-      image:
-        "https://i.pinimg.com/564x/4f/78/a2/4f78a2ac80a385cc2c40e2d633439df7.jpg",
-      paymentStatus: "Paid",
-      totalAmount: "$250.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV002",
-      image:
-        "https://i.pinimg.com/564x/4f/78/a2/4f78a2ac80a385cc2c40e2d633439df7.jpg",
-      paymentStatus: "Pending",
+  const { data: session } = useSession();
+  const [cartItems, setcartItems] = useState<cartItem[] | []>([]);
 
-      totalAmount: "$150.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV003",
-      image:
-        "https://i.pinimg.com/564x/4f/78/a2/4f78a2ac80a385cc2c40e2d633439df7.jpg",
-      paymentStatus: "Unpaid",
-      totalAmount: "$350.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV004",
-      image:
-        "https://i.pinimg.com/564x/4f/78/a2/4f78a2ac80a385cc2c40e2d633439df7.jpg",
-      paymentStatus: "Paid",
-      totalAmount: "$450.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV005",
-      image:
-        "https://i.pinimg.com/564x/4f/78/a2/4f78a2ac80a385cc2c40e2d633439df7.jpg",
-      paymentStatus: "Paid",
-      totalAmount: "$550.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV006",
-      image:
-        "https://i.pinimg.com/564x/4f/78/a2/4f78a2ac80a385cc2c40e2d633439df7.jpg",
-      paymentStatus: "Pending",
-      totalAmount: "$200.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV007",
-      image:
-        "https://i.pinimg.com/564x/4f/78/a2/4f78a2ac80a385cc2c40e2d633439df7.jpg",
-      paymentStatus: "Unpaid",
-      totalAmount: "$300.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV001",
-      image:
-        "https://i.pinimg.com/564x/4f/78/a2/4f78a2ac80a385cc2c40e2d633439df7.jpg",
-      paymentStatus: "Paid",
-      totalAmount: "$250.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV002",
-      image:
-        "https://i.pinimg.com/564x/4f/78/a2/4f78a2ac80a385cc2c40e2d633439df7.jpg",
-      paymentStatus: "Pending",
+  const [loading, setLoading] = useState<boolean>(true);
+  const userId = session?.user.id;
 
-      totalAmount: "$150.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV003",
-      image:
-        "https://i.pinimg.com/564x/4f/78/a2/4f78a2ac80a385cc2c40e2d633439df7.jpg",
-      paymentStatus: "Unpaid",
-      totalAmount: "$350.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV004",
-      image:
-        "https://i.pinimg.com/564x/4f/78/a2/4f78a2ac80a385cc2c40e2d633439df7.jpg",
-      paymentStatus: "Paid",
-      totalAmount: "$450.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV005",
-      image:
-        "https://i.pinimg.com/564x/4f/78/a2/4f78a2ac80a385cc2c40e2d633439df7.jpg",
-      paymentStatus: "Paid",
-      totalAmount: "$550.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV006",
-      image:
-        "https://i.pinimg.com/564x/4f/78/a2/4f78a2ac80a385cc2c40e2d633439df7.jpg",
-      paymentStatus: "Pending",
-      totalAmount: "$200.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV007",
-      image:
-        "https://i.pinimg.com/564x/4f/78/a2/4f78a2ac80a385cc2c40e2d633439df7.jpg",
-      paymentStatus: "Unpaid",
-      totalAmount: "$300.00",
-      paymentMethod: "Credit Card",
-    },
-  ];
+  const getCartItems = async () => {
+    const response = await fetch("http://localhost:3000/api/cart", {
+      method: "post",
+      body: JSON.stringify({
+        userId: userId,
+      }),
+    });
+
+    if (response.status === 200) {
+      const responseData = await response.json();
+      setLoading(false);
+      return setcartItems(() => responseData);
+    }
+    setLoading(false);
+    return setcartItems([]);
+  };
+
+  useEffect(() => {
+    getCartItems();
+  }, [userId]);
+
+  let total = 0;
+  for (let i = 0; i < cartItems.length; i++) {
+    let item = cartItems[i];
+    total += item.itemPrice * item.itemQuantity;
+  }
+
+  const handleCartItemDelete = async (productId: string) => {
+    setLoading(true);
+    const response = await fetch(
+      "http://localhost:3000/api/cart/" + productId,
+      {
+        method: "delete",
+      }
+    );
+    const { message } = await response.json();
+    if (response.status === 200) {
+      await getCartItems();
+      setLoading(false);
+      return toast.success(message);
+    }
+    setLoading(false);
+    return toast.error(message);
+  };
+
+  const handleCartItemQuantity = async (
+    productId: string,
+    itemQuantity: number
+  ) => {
+    const response = await fetch(
+      "http://localhost:3000/api/cart/" + productId,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          itemQuantity: itemQuantity,
+        }),
+      }
+    );
+    if (response.status === 200) {
+      await getCartItems();
+      return setLoading(false);
+    }
+    const { message } = await response.json();
+    return toast.error(message);
+  };
+
+  if (session === undefined) {
+    return (
+      <div className="h-full w-full overflow-hidden flex justify-center items-center">
+        <div className="loader "></div>
+      </div>
+    );
+  }
+
   return (
-    <div className=" border border-red-500  ">
+    <div>
       <div className="w-full flex justify-center items-center flex-col my-10">
         <h1 className="text-3xl text-center font-semibold my-5">
           Checkout Page
         </h1>
-        <div className="w-5/6 flex justify-center items-center px-7">
-          <Table>
+        <div className="md:w-5/6 w-full flex justify-center items-center px-2 md:px-5 lg:px-7">
+          <Table className="text-xs w-full sm:text-sm md:text-lg">
             <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">Product</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Quantity</TableHead>
-                <TableHead>Amount</TableHead>
-                <TableHead>Delete</TableHead>
+              <TableRow className="hover:bg-stone-600  bg-stone-600 *:hover:bg-stone-500 *:cursor-pointer *:text-white *:font-bold">
+                <TableHead colSpan={2} className="text-center md:text-left">
+                  Product
+                </TableHead>
+
+                <TableHead colSpan={1} className="text-center ">
+                  Price
+                </TableHead>
+                <TableHead colSpan={1} className="text-center ">
+                  Quantity
+                </TableHead>
+                <TableHead
+                  colSpan={1}
+                  className="text-center md:text-right "
+                ></TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
-              {invoices.map((invoice) => (
-                <TableRow key={invoice.invoice}>
-                  <TableCell className="font-medium">
-                    <img className="rounded-xl" src={invoice.image} />
-                  </TableCell>
-                  <TableCell>{invoice.paymentStatus}</TableCell>
-                  <TableCell>{invoice.paymentMethod}</TableCell>
-                  <TableCell>{invoice.totalAmount}</TableCell>
-                  <TableCell>
-                    <TableCell>
-                      <MdDelete className="xl:text-2xl text-red-600" />
-                    </TableCell>
+            {loading ? (
+              <TableBody>
+                <TableRow>
+                  <TableCell
+                    colSpan={5}
+                    className="h-[50vh] bg-stone-300 hover:bg-stone-300 "
+                  >
+                    <div className="flex items-center flex-col h-[50vh] py-5 justify-center">
+                      <div className="border-gray-300 h-10 w-10 animate-spin rounded-full border-4 border-t-blue-600" />
+                      <h1 className="text-stone-600 font-bold mt-4">
+                        Please! Wait for a while
+                      </h1>
+                    </div>
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TableCell colSpan={3}>Total</TableCell>
-                <TableCell>$2,500.00</TableCell>
-                <TableCell>
-                  <Button>Payment</Button>
-                </TableCell>
-              </TableRow>
+              </TableBody>
+            ) : (
+              <TableBody>
+                {cartItems.length >= 0 &&
+                  cartItems?.map((item) => (
+                    <Suspense
+                      fallback={<CheckoutItemSkeleton />}
+                      key={item.productId}
+                    >
+                      <CheckoutItems
+                        productId={item.productId}
+                        cartItemQuantity={handleCartItemQuantity}
+                        cartItemDelete={handleCartItemDelete}
+                        image={item.productImages[0]}
+                        totalAmount={item.itemQuantity * item.itemPrice}
+                        name={item.name}
+                        itemQuantity={item.itemQuantity}
+                      />
+                    </Suspense>
+                  ))}
+                {!loading &&
+                  (cartItems.length === undefined || cartItems.length <= 0) && (
+                    <TableRow>
+                      <TableCell
+                        colSpan={5}
+                        className="h-[50vh] bg-stone-300 hover:bg-stone-300 "
+                      >
+                        <h1 className="font-bold flex w-full justify-center items-center *:mx-3 text-stone-500 text-2xl">
+                          Cart is empty
+                          <MdRemoveShoppingCart />
+                        </h1>
+                      </TableCell>
+                    </TableRow>
+                  )}
+              </TableBody>
+            )}
+            <TableFooter className="bg-stone-600 ">
+              {cartItems.length !== undefined && cartItems.length >= 0 && (
+                <TableRow className="rounded-b-full hover:bg-stone-600">
+                  <TableCell
+                    colSpan={2}
+                    className="text-white text-left font-bold"
+                  >
+                    <h1 className="px-5 md:px-0">Total</h1>
+                  </TableCell>
+
+                  <TableCell
+                    colSpan={1}
+                    className="p-2  text-white text-center font-bold"
+                  >
+                    $ {total}
+                  </TableCell>
+                  <TableCell colSpan={2} className="text-right ">
+                    <Button className="text-xs md:text-lg w-full md:w-3/4 text-stone-600 px-2 bg-stone-300 hover:bg-stone-200">
+                      Proceed To Payment
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              )}
+              {(cartItems.length === undefined || cartItems.length <= 0) && (
+                <TableRow>
+                  <TableCell
+                    colSpan={5}
+                    className=" bg-stone-600 hover:bg-stone-600 "
+                  ></TableCell>
+                </TableRow>
+              )}
             </TableFooter>
           </Table>
         </div>

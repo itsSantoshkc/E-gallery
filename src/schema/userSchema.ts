@@ -55,3 +55,12 @@ export const sessions = mysqlTable("session", {
     .references(() => users.id, { onDelete: "cascade" }),
   expires: timestamp("expires", { mode: "date" }).notNull(),
 });
+
+export const shippingAddress = mysqlTable("shippingAddress", {
+  userId: varchar("userId", { length: 255 })
+    .notNull()
+    .primaryKey()
+    .references(() => users.id, { onDelete: "cascade" }),
+  province: varchar("province", { length: 255 }),
+  Address: varchar("address", { length: 255 }),
+});
